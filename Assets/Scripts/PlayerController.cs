@@ -178,7 +178,34 @@ public class PlayerController : MonoBehaviour {
 
             Quaternion targetRotation = Quaternion.LookRotation(RayHitPoint - transform.position);
 
-            playerTrans.rotation = Quaternion.Slerp(playerTrans.rotation, targetRotation, Time.deltaTime * rotateSpeed);
+            if (targetRotation.eulerAngles.y >= 55.0f && targetRotation.eulerAngles.y <= 125.0f)
+                playerTrans.rotation = Quaternion.Slerp(playerTrans.rotation, targetRotation, Time.deltaTime * rotateSpeed);
+
+            else if (targetRotation.eulerAngles.y <= 305 && targetRotation.eulerAngles.y >= 235)
+                playerTrans.rotation = Quaternion.Slerp(playerTrans.rotation, targetRotation, Time.deltaTime * rotateSpeed);
+
+            else if (targetRotation.eulerAngles.y > 0 && targetRotation.eulerAngles.y < 55.0f)
+            {
+                targetRotation = Quaternion.AngleAxis(55.0f, Vector3.up);
+                playerTrans.rotation = Quaternion.Slerp(playerTrans.rotation, targetRotation, Time.deltaTime * rotateSpeed);
+            }
+            else if (targetRotation.eulerAngles.y < 360 && targetRotation.eulerAngles.y > 305.0f)
+            {
+                targetRotation = Quaternion.AngleAxis(305.0f, Vector3.up);
+                playerTrans.rotation = Quaternion.Slerp(playerTrans.rotation, targetRotation, Time.deltaTime * rotateSpeed);
+            }
+            else if (targetRotation.eulerAngles.y > 180 && targetRotation.eulerAngles.y < 235.0f)
+            {
+                targetRotation = Quaternion.AngleAxis(235.0f, Vector3.up);
+                playerTrans.rotation = Quaternion.Slerp(playerTrans.rotation, targetRotation, Time.deltaTime * rotateSpeed);
+            }
+            else if (targetRotation.eulerAngles.y <= 180 && targetRotation.eulerAngles.y > 125.0f)
+            {
+                targetRotation = Quaternion.AngleAxis(125.0f, Vector3.up);
+                playerTrans.rotation = Quaternion.Slerp(playerTrans.rotation, targetRotation, Time.deltaTime * rotateSpeed);
+            }
+
+            print(targetRotation.eulerAngles.y);
         }
     }
 }
