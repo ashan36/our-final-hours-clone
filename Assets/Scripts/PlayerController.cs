@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour {
 	//---
 
 	public Quaternion localRotation;
+    float rotateSpeed = 7.0f;
+    Plane playerPlane;
 
 	/* for jumping */
 	GameObject ground;
@@ -94,6 +96,7 @@ public class PlayerController : MonoBehaviour {
     void Update ()
     {
         FollowCam.S.poi = player;
+        UpdateMouse();
     }
 
 	void Move (float h, float v)
@@ -104,7 +107,7 @@ public class PlayerController : MonoBehaviour {
 		
 		playerTrans.position += movement;
 
-		if(h < 0f)
+/*		if(h < 0f)
 		{
 			direction = -180f;
 			chestAngle = 35f;
@@ -116,7 +119,7 @@ public class PlayerController : MonoBehaviour {
 			chestAngle = -35f;
 			Flip ();
 		}
-		
+*/		
 	}
 
 	void Flip ()
@@ -161,4 +164,21 @@ public class PlayerController : MonoBehaviour {
 			animChest.SetBool ("IsWalking", false);
 		}
 	}
+
+    void UpdateMouse ()
+    {
+        Plane playerPlane = new Plane(Vector3.up, transform.position + new Vector3(0, 0, 0));
+        Ray raycast = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        float HitDist = 0;
+
+        if (playerPlane.Raycast(raycast, out HitDist))
+        {
+            Vector3 RayHitPoint = raycast.GetPoint(HitDist);
+
+            Quaternion targetRotation = Quaternion.LookRotation(RayHitPoint - transform.position);
+
+            playerTrans.rotation = Quaternion.Slerp(playerTrans.rotation, targetRotation, Time.deltaTime * rotateSpeed);
+        }
+    }
 }

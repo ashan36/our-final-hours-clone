@@ -5,6 +5,7 @@ public class ObjectHealth : MonoBehaviour {
 
     public int startingHealth = 100;
     public int currentHealth;
+    public bool killable;
 
     ParticleSystem hitParticles;
     CapsuleCollider capsuleCollider;
@@ -30,7 +31,7 @@ public class ObjectHealth : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
     {
-        if (currentHealth <= 0)
+        if (currentHealth <= 0 && killable)
             Destroy(this.gameObject, 0.1f);
 	}
 
@@ -39,8 +40,11 @@ public class ObjectHealth : MonoBehaviour {
         if (isDead)
             return;
 
-        hitParticles.transform.position = hitPoint;
-        hitParticles.Play();
+        if (hitParticles != null)
+        {
+            hitParticles.transform.position = hitPoint;
+            hitParticles.Play();
+        }
 
         currentHealth -= dmgAmount;
     }

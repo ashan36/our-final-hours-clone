@@ -89,7 +89,7 @@ public class Shooting : MonoBehaviour {
 
         //Sets the ejection angle, then adds a bit of randomness to it.
         Vector3 ejectionVelocity;
-        ejectionVelocity = (-transform.forward - (0.5f * transform.right)) * 1.25f;
+        ejectionVelocity = (-transform.forward + (0.8f * transform.right)) * 1.25f;
         ejectionVelocity.y = 1f;
 
         Vector3 randVelocity = Random.insideUnitSphere;
@@ -114,7 +114,7 @@ public class Shooting : MonoBehaviour {
 
         // Set the shootRay so that it starts at the end of the gun and points forward from the barrel.
         shootRay.origin = ejectionLoc;
-        shootRay.direction = transform.right;
+        shootRay.direction = transform.forward;
 
         if (Physics.Raycast(shootRay, out shootHit, 50f, shootableMask))
         {
