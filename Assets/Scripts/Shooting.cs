@@ -45,7 +45,6 @@ public class Shooting : MonoBehaviour {
         if (!isSemiAuto)
         {
             fireRate = lockTime;
-            print(fireRate);
         }
         else
             fireRate = 0;

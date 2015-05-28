@@ -22,7 +22,7 @@ public class GhostChaseState : FSMState
             npc.GetComponent<GhostController>().SetTransition(Transition.PlayerReached);
         }
 
-        if (playerDist >= 5.0f)
+        if (playerDist >= 7.0f)
         {
             Debug.Log("Switch to Idle state");
             npc.GetComponent<GhostController>().SetTransition(Transition.PlayerLost);
