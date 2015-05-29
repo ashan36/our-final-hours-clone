@@ -59,15 +59,20 @@ public class Shooting : MonoBehaviour {
         if(Input.GetMouseButtonUp(0))
         {
             CancelInvoke();
+            PlayerController.attacking = false;
         }
+
         if (Mathf.Abs(lastShot - Time.time) > lockTime)
             gunLine.enabled = false;
+
         Transform ejectionPointTrans = transform.FindChild("CasingSpawner");
         ejectionLoc = ejectionPointTrans.position;
 	}
 
     void Fire()
     {
+        PlayerController.attacking = true;
+
         approxDeltaShotTime = System.Math.Round((Mathf.Abs(lastShot - Time.time)), 2);
         if ((approxDeltaShotTime - lockTime) < 0.1f)
             return;

@@ -14,16 +14,17 @@ public class PlayerController : MonoBehaviour {
 	Transform playerTrans;
 
 	//---test stuff---
-	Transform chestTrans;
+//	Transform chestTrans;
 	public float chestAngle;
 	//---
 
 	public Quaternion localRotation;
     float rotateSpeed = 7.0f;
-    Plane playerPlane;
+
+    public static bool attacking = false;
 
 	/* for jumping */
-	GameObject ground;
+//	GameObject ground;
 	public float jumpHeight= 10f;
 	public bool jumping = false;
 	public bool falling = false;
@@ -33,7 +34,7 @@ public class PlayerController : MonoBehaviour {
 	public GameObject legs;
 	public Animator animLegs;
 	public GameObject chest;
-	public Animator animChest;
+	//public Animator animChest;
 	public bool walking;
     public static bool isInside = false;
 
@@ -44,9 +45,9 @@ public class PlayerController : MonoBehaviour {
 		legs = GameObject.Find ("Legs");
 		animLegs = legs.GetComponent <Animator> ();
 
-		chest = GameObject.Find ("Chest");
-		animChest = chest.GetComponent <Animator> ();
-		chestTrans = chest.transform;
+	//  chest = GameObject.Find ("Chest");
+	//	animChest = chest.GetComponent <Animator> ();
+	//	chestTrans = chest.transform;
 
 		player = GameObject.FindGameObjectWithTag ("Player");
 		playerTrans = player.transform;
@@ -105,6 +106,7 @@ public class PlayerController : MonoBehaviour {
 		
 		movement = movement.normalized * speed * Time.deltaTime;
 		
+   //   if (!attacking)
 		playerTrans.position += movement;
 
 /*		if(h < 0f)
@@ -156,13 +158,21 @@ public class PlayerController : MonoBehaviour {
 		if (walking)
 		{
 			animLegs.SetBool ("IsWalking", true);
-			animChest.SetBool ("IsWalking", true);
+			//animChest.SetBool ("IsWalking", true);
 		}
 		else if(!walking)
 		{
 			animLegs.SetBool ("IsWalking", false);
-			animChest.SetBool ("IsWalking", false);
+			//animChest.SetBool ("IsWalking", false);
 		}
+        if (attacking)
+        {
+            animLegs.SetBool("IsAttacking", true);
+        }
+        else if (!attacking)
+        {
+            animLegs.SetBool("IsAttacking", false);
+        }
 	}
 
     void UpdateMouse ()
@@ -204,8 +214,6 @@ public class PlayerController : MonoBehaviour {
                 targetRotation = Quaternion.AngleAxis(125.0f, Vector3.up);
                 playerTrans.rotation = Quaternion.Slerp(playerTrans.rotation, targetRotation, Time.deltaTime * rotateSpeed);
             }
-
-            print(targetRotation.eulerAngles.y);
         }
     }
 }

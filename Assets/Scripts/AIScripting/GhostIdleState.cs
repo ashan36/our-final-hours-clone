@@ -17,7 +17,7 @@ public class GhostIdleState : FSMState
 
         float playerDist = Vector3.Distance(npcTrans.position, destination);
 
-        if (playerDist < 5.0f)
+        if (playerDist < 8.0f)
         {
             Debug.Log("Switch to Chase state");
             npc.GetComponent<GhostController>().SetTransition(Transition.PlayerSpotted);

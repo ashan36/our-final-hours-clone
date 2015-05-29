@@ -16,11 +16,15 @@ public class ObjectHealth : MonoBehaviour {
     void Awake ()
     {
         hitParticles = GetComponentInChildren<ParticleSystem>();
+
+        if (this.GetComponent<SphereCollider>() != null)
         sphereCollider = GetComponent<SphereCollider>();
+        if (this.GetComponent<CapsuleCollider>() != null)
         capsuleCollider = GetComponent<CapsuleCollider>();
+        if (this.GetComponent<BoxCollider>() != null)
         boxCollider = GetComponent<BoxCollider>();
+
         currentHealth = startingHealth;
-  
     }
 
 	// Use this for initialization
@@ -32,7 +36,10 @@ public class ObjectHealth : MonoBehaviour {
 	void Update () 
     {
         if (currentHealth <= 0 && killable)
+        {
             Destroy(this.gameObject, 0.1f);
+            isDead = true;
+        }
 	}
 
     public void TakeDamage(int dmgAmount, Vector3 hitPoint)
