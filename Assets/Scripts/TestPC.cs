@@ -25,7 +25,7 @@ public class TestPC : MonoBehaviour {
 	public Quaternion localRotation;
 
 	/* for jumping */
-	GameObject ground;
+//	GameObject ground;
 	public float jumpHeight= 10f;
 	public bool jumping = false;
 	public bool falling = false;

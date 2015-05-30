@@ -10,6 +10,7 @@ TagManager:
   - Fire
   - SpentCasing
   - InsideFloor
+  - ScriptObject
   layers:
   - Default
   - TransparentFX
