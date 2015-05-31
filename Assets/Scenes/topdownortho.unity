@@ -350,7 +350,7 @@ GameObject:
   - 95: {fileID: 345938042}
   - 212: {fileID: 345938041}
   m_Layer: 8
-  m_Name: Legs
+  m_Name: PlayerAnimation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -403,7 +403,7 @@ Animator:
   m_GameObject: {fileID: 345938039}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: cdf4e438e84906747bcf733c0618ff68, type: 2}
+  m_Controller: {fileID: 9100000, guid: 087b195faf1f25346b96676353dccb2a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -2334,7 +2334,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1739584186}
-  m_RootOrder: 2
+  m_RootOrder: 1
 --- !u!114 &1683097615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2378,8 +2378,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 345938040}
-  - {fileID: 1566812886}
   - {fileID: 1683097614}
+  - {fileID: 1566812886}
   m_Father: {fileID: 0}
   m_RootOrder: 10
 --- !u!54 &1739584187
@@ -2425,17 +2425,11 @@ MonoBehaviour:
   moveAttackSpeed: 2
   moveFallSpeed: 1
   direction: 1
-  chestAngle: 0
   action: 0
   localRotation: {x: 0, y: 0, z: 0, w: 0}
   jumpHeight: 5
-  jumping: 0
-  falling: 0
-  isGrounded: 1
-  legs: {fileID: 0}
-  animLegs: {fileID: 0}
-  chest: {fileID: 0}
-  walking: 0
+  pAnim: {fileID: 0}
+  animPlayer: {fileID: 0}
   weapon: 0
 --- !u!1 &1785269870
 GameObject:
