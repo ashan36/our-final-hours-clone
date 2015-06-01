@@ -14,8 +14,7 @@ public class PlayerController : MonoBehaviour {
 	Transform playerTrans;
 
 	//---test stuff---
-//	Transform chestTrans;
-	public float chestAngle;
+	public float action;
 	//---
 
 	public Quaternion localRotation;
@@ -24,30 +23,23 @@ public class PlayerController : MonoBehaviour {
     public static bool attacking = false;
 
 	/* for jumping */
-//	GameObject ground;
 	public float jumpHeight= 10f;
-	public bool jumping = false;
-	public bool falling = false;
-	public bool isGrounded = true;
+	public static bool jumping = false;
+	public static bool falling = false;
+	public static bool isGrounded = true;
 
 	/* for animating */
-	public GameObject legs;
-	public Animator animLegs;
-	public GameObject chest;
-	//public Animator animChest;
-	public bool walking;
+	public GameObject pAnim;
+	public Animator animPlayer;
+	public static bool walking;
     public static bool isInside = false;
 
 	public int weapon = 0;
 	
 	void Awake () 
 	{
-		legs = GameObject.Find ("Legs");
-		animLegs = legs.GetComponent <Animator> ();
-
-	//  chest = GameObject.Find ("Chest");
-	//	animChest = chest.GetComponent <Animator> ();
-	//	chestTrans = chest.transform;
+		pAnim = GameObject.Find ("PlayerAnimation");
+		animPlayer = pAnim.GetComponent <Animator> ();
 
 		player = GameObject.FindGameObjectWithTag ("Player");
 		playerTrans = player.transform;
@@ -88,8 +80,7 @@ public class PlayerController : MonoBehaviour {
 			falling =  true;
 			speed = moveFallSpeed;
 		}
-		//attacking = Input.GetButtonDown ("Attack");
-		//blocking = Input.GetButton ("Block");
+
 		Move (h, v);
 		Animating (h, v);
 	}
@@ -105,23 +96,8 @@ public class PlayerController : MonoBehaviour {
 		movement.Set (h, 0f, (v));
 		
 		movement = movement.normalized * speed * Time.deltaTime;
-		
-   //   if (!attacking)
-		playerTrans.position += movement;
 
-/*		if(h < 0f)
-		{
-			direction = -180f;
-			chestAngle = 35f;
-			Flip ();
-		}
-		else if (h > 0f)
-		{
-			direction = 0f;
-			chestAngle = -35f;
-			Flip ();
-		}
-*/		
+		playerTrans.position += movement;
 	}
 
 	void Flip ()
@@ -136,7 +112,7 @@ public class PlayerController : MonoBehaviour {
 			isGrounded = true;
 			falling = false;
             isInside = false;
-            print("is Outside");
+            //print("is Outside");
 		}
 
         if (coll.gameObject.tag == "InsideFloor")
@@ -144,35 +120,48 @@ public class PlayerController : MonoBehaviour {
 			isGrounded = true;
 			falling = false;
 			isInside = true;
-            print("is Inside");
+            //print("is Inside");
         }
-		//else if
-		//{
-		//	isGrounded = false;
-		//}
 		
 	}
 	void Animating (float h, float v)
 	{
+		/* Action number code
+		 * - - - - - - - - - -
+		 * 0.0 = idle
+		 * 0.1 = idle aiming = 0.1
+		 * 0.2 = idle shooting = 0.2
+		 * 0.3 = idle interaction = 0.3
+		 * 0.4 = idle [reserved] = 0.4
+		 * 0.5 = running
+		 * 0.6 = walk aiming
+		 * 0.7 = walk shooting
+		 * 0.8 = jumping
+		 * 0.9 = falling
+		 * 1.0 = death
+		 */
+
 		walking = (h != 0f || v != 0f);
 		if (walking)
 		{
-			animLegs.SetBool ("IsWalking", true);
-			//animChest.SetBool ("IsWalking", true);
+			animPlayer.SetFloat ("Action", 0.5f);
 		}
 		else if(!walking)
 		{
-			animLegs.SetBool ("IsWalking", false);
-			//animChest.SetBool ("IsWalking", false);
+			animPlayer.SetFloat ("Action", 0f);
 		}
         if (attacking)
         {
-            animLegs.SetBool("IsAttacking", true);
+			animPlayer.SetFloat ("Action", 0.7f);
         }
-        else if (!attacking)
+        else if (!attacking && !walking)
         {
-            animLegs.SetBool("IsAttacking", false);
+			animPlayer.SetFloat ("Action", 0);
         }
+		else if (!attacking && walking)
+		{
+			animPlayer.SetFloat ("Action", 0.5f);
+		}
 	}
 
     void UpdateMouse ()
