@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour {
 	public float direction = 1f; // for turning left and right
 	Vector3 movement;
 	GameObject player;
-	Transform playerTrans;
+	public static Transform playerTrans;
 
 	//---test stuff---
 	public float action;

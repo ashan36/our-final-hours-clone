@@ -2,27 +2,32 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class SpawnMonster : EventBaseClass {
+public class SpawnMonster : MonoBehaviour, IEventListener
+{
 
     public GameObject monsterPrefab;
     public int spawnAmount;
     private List<GameObject> spawnedMonsterList = new List<GameObject>(10);
     float monsterDiameter;
 
-    public EventBaseClass spawnMonsterInstance;
-    TriggerManager managerRef;
+    // From IEventListener
+    public Trigger wiredTrigger { get; set; }
+    public Vector3 objectPosition { get; set; }
+    public int identifier { get; set; }
+    public TriggerManager managerRef { get; set; }
+    public IEventListener listeningObjectRef;
 
-    public override void Awake ()
+    public void Awake ()
     {
         managerRef = GameObject.FindGameObjectWithTag("ScriptObject").GetComponent<TriggerManager>();
-        spawnMonsterInstance = this.GetComponent<SpawnMonster>();
+        listeningObjectRef = this.GetComponent<SpawnMonster>();
         objectPosition = this.transform.position;
         ConnectToTrigger();
     }
 
-    public override void ConnectToTrigger()
+    public void ConnectToTrigger()
     {
-        identifier = managerRef.RegisterEvent(ref spawnMonsterInstance);
+        identifier = managerRef.RegisterEvent(ref listeningObjectRef);
         Debug.Log("identifier = " + identifier);
     }
 
@@ -40,12 +45,12 @@ public class SpawnMonster : EventBaseClass {
 	
 	}
 
-    public override void OnDisable ()
+    public void OnDisable ()
     {
         wiredTrigger.tripTrigger -= doAction;
     }
 
-    public override void doAction ()
+    public void doAction ()
     {
         for (int i = spawnedMonsterList.Count; i < spawnAmount; i++)
         {

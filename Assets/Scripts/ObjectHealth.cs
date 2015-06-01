@@ -8,9 +8,8 @@ public class ObjectHealth : MonoBehaviour {
     public bool killable;
 
     ParticleSystem hitParticles;
-    CapsuleCollider capsuleCollider;
-    SphereCollider sphereCollider;
-    BoxCollider boxCollider;
+    Collider collider;
+
     bool isDead;
 
     void Awake ()
@@ -18,11 +17,11 @@ public class ObjectHealth : MonoBehaviour {
         hitParticles = GetComponentInChildren<ParticleSystem>();
 
         if (this.GetComponent<SphereCollider>() != null)
-        sphereCollider = GetComponent<SphereCollider>();
+        collider = GetComponent<SphereCollider>();
         if (this.GetComponent<CapsuleCollider>() != null)
-        capsuleCollider = GetComponent<CapsuleCollider>();
+        collider = GetComponent<CapsuleCollider>();
         if (this.GetComponent<BoxCollider>() != null)
-        boxCollider = GetComponent<BoxCollider>();
+        collider = GetComponent<BoxCollider>();
 
         currentHealth = startingHealth;
     }
