@@ -10,6 +10,10 @@ public class TerminalInteraction : Trigger
     public Trigger triggerInstance;
     TriggerManager managerRef;
 
+    public Sprite onSprite;
+    public Sprite offSprite;
+    SpriteRenderer currentSprite;
+
     public override void Awake()
     {
         managerRef = GameObject.FindGameObjectWithTag("ScriptObject").GetComponent<TriggerManager>();
@@ -18,6 +22,7 @@ public class TerminalInteraction : Trigger
         RegisterWithManager();
 
         anim = GetComponentInChildren<Animator>();
+        currentSprite = GetComponentInChildren <SpriteRenderer>();
     }
 
     public override void RegisterWithManager()
@@ -42,11 +47,13 @@ public class TerminalInteraction : Trigger
                 {
                     On = true;
                     OnTriggered();
+                    currentSprite.sprite = onSprite;
                 }
                 else
                 {
                     On = false;
                     OnTriggered();
+                    currentSprite.sprite = offSprite;
                 }
             }
         }
