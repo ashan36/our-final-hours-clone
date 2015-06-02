@@ -34,6 +34,9 @@ public class PlayerController : MonoBehaviour {
 	public static bool walking;
     public static bool isInside = false;
 
+	/* health */
+	ObjectHealth playerHealth;
+
 	public int weapon = 0;
 	
 	void Awake () 
@@ -44,6 +47,8 @@ public class PlayerController : MonoBehaviour {
 		player = GameObject.FindGameObjectWithTag ("Player");
 		playerTrans = player.transform;
 		speed = moveSpeed;
+
+		playerHealth = this.GetComponentInChildren <ObjectHealth> ();
 	}
 
     void Start ()
@@ -89,7 +94,7 @@ public class PlayerController : MonoBehaviour {
     {
         FollowCam.S.poi = player;
         UpdateMouse();
-    }
+	}
 
 	void Move (float h, float v)
 	{
@@ -128,39 +133,50 @@ public class PlayerController : MonoBehaviour {
 	{
 		/* Action number code
 		 * - - - - - - - - - -
-		 * 0.0 = idle
-		 * 0.1 = idle aiming = 0.1
-		 * 0.2 = idle shooting = 0.2
-		 * 0.3 = idle interaction = 0.3
-		 * 0.4 = idle [reserved] = 0.4
-		 * 0.5 = running
-		 * 0.6 = walk aiming
-		 * 0.7 = walk shooting
-		 * 0.8 = jumping
-		 * 0.9 = falling
-		 * 1.0 = death
+		 * 0 = idle
+		 * 1 = idle aiming
+		 * 2 = idle shooting
+		 * 3 = idle interaction
+		 * 4 = [reserved]
+		 * 5 = running
+		 * 6 = walk forward
+		 * 7 = walk aiming forward
+		 * 8 = walk shooting forwad
+		 * 9 = walking backward
+		 * 10 = walk aiming backwards
+		 * 11 = walk shooting backwards
+		 * 12 = dodge forward
+		 * 13 = dodge backwards
+		 * 20 = death
 		 */
 
-		walking = (h != 0f || v != 0f);
-		if (walking)
+		if (playerHealth.isDead) // Player is dead
 		{
-			animPlayer.SetFloat ("Action", 0.5f);
+			animPlayer.SetFloat ("Action", 10f);
 		}
-		else if(!walking)
+		else // Player is not dead
 		{
-			animPlayer.SetFloat ("Action", 0f);
-		}
-        if (attacking)
-        {
-			animPlayer.SetFloat ("Action", 0.7f);
-        }
-        else if (!attacking && !walking)
-        {
-			animPlayer.SetFloat ("Action", 0);
-        }
-		else if (!attacking && walking)
-		{
-			animPlayer.SetFloat ("Action", 0.5f);
+			walking = (h != 0f || v != 0f);
+			if (walking)
+			{
+				animPlayer.SetFloat ("Action", 5f);
+			}
+			else if(!walking)
+			{
+				animPlayer.SetFloat ("Action", 0f);
+			}
+       		if (attacking)
+       		{
+				animPlayer.SetFloat ("Action", 7f);
+        	}
+       		else if (!attacking && !walking)
+        	{
+				animPlayer.SetFloat ("Action", 0f);
+        	}
+			else if (!attacking && walking)
+			{
+				animPlayer.SetFloat ("Action", 5f);
+			}
 		}
 	}
 

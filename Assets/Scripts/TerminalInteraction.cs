@@ -5,7 +5,6 @@ public class TerminalInteraction : Trigger
 
 {
     public bool On;
-    Animator anim;
 
     public Trigger triggerInstance;
     TriggerManager managerRef;
@@ -20,8 +19,7 @@ public class TerminalInteraction : Trigger
         triggerInstance = this;
         triggerPosition = this.transform.position;
         RegisterWithManager();
-
-        anim = GetComponentInChildren<Animator>();
+		
         currentSprite = GetComponentInChildren <SpriteRenderer>();
     }
 
