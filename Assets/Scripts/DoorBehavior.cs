@@ -1,15 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DoorBehavior : EventBaseClass {
+public class DoorBehavior : MonoBehaviour, IEventListener
+{
 
     BoxCollider BoxCollider;
     Material doorMat;
+    public bool open;
 
-    public EventBaseClass doorBehaviorInstance;
-    TriggerManager managerRef;
+    public IEventListener doorBehaviorInstance;
 
-    public override void Awake ()
+    public Trigger wiredTrigger { get; set; }
+    public Vector3 objectPosition { get; set; }
+    public int identifier { get; set; }
+    public TriggerManager managerRef { get; set; }
+
+    public void Awake ()
     {
         BoxCollider = GetComponent<BoxCollider>();
         doorMat = GetComponent<MeshRenderer>().material;
@@ -21,7 +27,7 @@ public class DoorBehavior : EventBaseClass {
         ConnectToTrigger();
     }
 
-    public override void ConnectToTrigger()
+    public void ConnectToTrigger()
     {
         identifier = managerRef.RegisterEvent(ref doorBehaviorInstance);
     }
@@ -39,29 +45,29 @@ public class DoorBehavior : EventBaseClass {
 	
 	}
 
-    public override void OnDisable()
+    public void OnDisable()
     {
         wiredTrigger.tripTrigger -= doAction;
     }
 
-    void OnCollisionEnter (Collision other)
+    public void doAction ()
     {
-        GameObject collidedWith = other.gameObject;
-        if (collidedWith.tag == "Player")
+        if (!open)
         {
             BoxCollider.enabled = false;
             Color color = doorMat.color;
             color.a = 0f;
             doorMat.color = color;
+            open = true;
         }
-    }
-
-    public override void doAction ()
-    {
-        BoxCollider.enabled = false;
-        Color color = doorMat.color;
-        color.a = 0f;
-        doorMat.color = color;
+        else
+        {
+            BoxCollider.enabled = true;
+            Color color = doorMat.color;
+            color.a = 1f;
+            doorMat.color = color;
+            open = false;
+        }
     }
   
 }

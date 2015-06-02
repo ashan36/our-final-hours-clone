@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-    sealed class TriggerManager : MonoBehaviour
+public sealed class TriggerManager : MonoBehaviour
     {
         private List<Trigger> triggerList = new List<Trigger>(5);
-        private List<EventBaseClass> eventList = new List<EventBaseClass>(5);
+        private List<IEventListener> eventList = new List<IEventListener>(5);
 
         private static int[] pairedList;
 
@@ -37,7 +37,7 @@ using UnityEngine;
             return identifier;
         }
 
-        public int RegisterEvent (ref EventBaseClass eventObject)
+        public int RegisterEvent (ref IEventListener eventObject)
         {
             int identifier;
             eventList.Add(eventObject);
