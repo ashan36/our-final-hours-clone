@@ -10,7 +10,7 @@ public class ObjectHealth : MonoBehaviour {
     ParticleSystem hitParticles;
     Collider collider;
 
-    bool isDead;
+    public bool isDead;
 
     void Awake ()
     {
