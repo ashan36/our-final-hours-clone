@@ -3,12 +3,12 @@ using System.Collections;
 
 public class ObjectHealth : MonoBehaviour {
 
-    public int startingHealth = 100;
-    public int currentHealth;
+    public float startingHealth = 100;
+    public float currentHealth;
     public bool killable;
 
-    ParticleSystem hitParticles;
-    Collider collider;
+    public ParticleSystem hitParticles;
+    Collider colliderRef;
 
     public bool isDead;
 
@@ -17,11 +17,11 @@ public class ObjectHealth : MonoBehaviour {
         hitParticles = GetComponentInChildren<ParticleSystem>();
 
         if (this.GetComponent<SphereCollider>() != null)
-        collider = GetComponent<SphereCollider>();
+        colliderRef = GetComponent<SphereCollider>();
         if (this.GetComponent<CapsuleCollider>() != null)
-        collider = GetComponent<CapsuleCollider>();
+        colliderRef = GetComponent<CapsuleCollider>();
         if (this.GetComponent<BoxCollider>() != null)
-        collider = GetComponent<BoxCollider>();
+        colliderRef = GetComponent<BoxCollider>();
 
         currentHealth = startingHealth;
     }
@@ -41,7 +41,7 @@ public class ObjectHealth : MonoBehaviour {
         }
 	}
 
-    public void TakeDamage(int dmgAmount, Vector3 hitPoint)
+    public void TakeDamage(float dmgAmount, Vector3 hitPoint)
     {
         if (isDead)
             return;

@@ -11,6 +11,7 @@ TagManager:
   - SpentCasing
   - InsideFloor
   - ScriptObject
+  - PauseMenu
   layers:
   - Default
   - TransparentFX

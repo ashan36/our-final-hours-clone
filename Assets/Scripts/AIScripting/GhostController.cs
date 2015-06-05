@@ -7,6 +7,9 @@ public class GhostController : FSMSystem
     protected Transform playerTransform;
     float elapsedTime;
     protected GameObject PlayerGO;
+    public float attackDamage;
+    public float attackRange;
+    public float attackAngle = 45f;
 
     void Awake()
     {
@@ -38,6 +41,27 @@ public class GhostController : FSMSystem
     public void SetTransition(Transition t)
     {
         PerformTransition(t);
+    }
+
+    public IEnumerator attackBehavior()
+    {
+        Debug.Log("Attacking");
+        RaycastHit attackHit = new RaycastHit();
+        Vector3 attackDirection = playerTransform.position - transform.position;
+
+        if (Vector3.Angle(attackDirection, transform.forward) < attackAngle)
+        {
+            if (Physics.Raycast(transform.position, attackDirection, out attackHit, attackRange))
+            {
+                ObjectHealth objectHealth = attackHit.collider.GetComponent<ObjectHealth>();
+                if (objectHealth != null)
+                {
+                  objectHealth.TakeDamage(attackDamage, attackHit.point);
+                }
+            }
+        }
+
+        yield return new WaitForSeconds(2f);
     }
 
     private void InitializeFSM()

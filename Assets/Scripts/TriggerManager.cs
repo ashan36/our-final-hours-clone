@@ -17,16 +17,7 @@ public sealed class TriggerManager : MonoBehaviour
 
         void Start ()
         {
-            Debug.Log("Trigger and Event Lists \n ______________");
-            for (int i = 0; i < triggerList.Count; i++)
-            {
-                Debug.Log("Trigger " + triggerList[i].ToString() + " " + i);
-            }
-
-            for (int i = 0; i < eventList.Count; i++)
-            {
-                Debug.Log("Event " + eventList[i].ToString() + " " + i);
-            }
+ 
         }
 
         public int RegisterTrigger(ref Trigger triggerObject)
@@ -58,30 +49,22 @@ public sealed class TriggerManager : MonoBehaviour
                 {
                     currentVector = triggerList[n].triggerPosition - eventList[i].objectPosition;
                     currentDistance = Math.Abs(currentVector.sqrMagnitude);
-                    print("currentdistance " + currentDistance);
+                    
 
                     if (n == 0 || shortestDistance > currentDistance)
                     {
                         shortestDistance = currentDistance;
                         indexofMatch = n;
-                        print("shortestdistance " + shortestDistance + " index of " + indexofMatch);
                     }
                 }
 
                 pairedList[i] = indexofMatch;
 
-                Debug.Log("Event:" + i + " Trigger:" + pairedList[i] + "\n");
             }
         }
 
         public Trigger getTrigger (int index)
         {
-            for (int i = 0; i < pairedList.Length; i++)
-            {
-                Debug.Log("Event:" + i + " Trigger:" + pairedList[i] + "\n");
-            }
-
-
             return triggerList[pairedList[index]];
         }
 
