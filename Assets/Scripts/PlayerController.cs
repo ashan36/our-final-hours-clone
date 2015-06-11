@@ -59,39 +59,46 @@ public class PlayerController : MonoBehaviour {
 	// FixedUpdate is called 50 times per second
 	void FixedUpdate ()
 	{
-		
-		float h = Input.GetAxisRaw ("Horizontal");
-		float v = Input.GetAxisRaw ("Vertical");;
+        if (!GameManager.gamePaused)
+        {
+            float h = Input.GetAxisRaw("Horizontal");
+            float v = Input.GetAxisRaw("Vertical"); ;
 
-		if (Input.GetKeyDown (KeyCode.Space) && isGrounded)
-		{
-			GetComponent<Rigidbody> ().velocity = new Vector3 (0f, jumpHeight);
-			jumping = true;
-			isGrounded = false;
-			speed = moveFallSpeed;
-		}
-		else
-		{
-			jumping = false;
-		}
+            if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+            {
+                GetComponent<Rigidbody>().velocity = new Vector3(0f, jumpHeight);
+                jumping = true;
+                isGrounded = false;
+                speed = moveFallSpeed;
+            }
+            else
+            {
+                jumping = false;
+            }
 
-		if (isGrounded)
-		{
-			speed = moveSpeed;
-			falling = false;
-		}
-		else if (!isGrounded && !jumping)
-		{
-			falling =  true;
-			speed = moveFallSpeed;
-		}
+            if (isGrounded)
+            {
+                speed = moveSpeed;
+                falling = false;
+            }
+            else if (!isGrounded && !jumping)
+            {
+                falling = true;
+                speed = moveFallSpeed;
+            }
 
-		Move (h, v);
-		Animating (h, v);
+            Move(h, v);
+            Animating(h, v);
+        }
 	}
 
     void Update ()
     {
+        if (playerHealth.isDead)
+        {
+            GameManager.gamePaused = true;
+        }
+
         FollowCam.S.poi = player;
         UpdateMouse();
 	}

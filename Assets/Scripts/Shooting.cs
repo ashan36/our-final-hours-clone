@@ -5,6 +5,7 @@ public class Shooting : MonoBehaviour {
     public GameObject prefabCasing;
     Vector3 ejectionLoc;
     public float ejectionMult;
+    Transform ejectionPointTrans;
 
     public GameObject casing;
     Rigidbody casingRB;
@@ -28,19 +29,17 @@ public class Shooting : MonoBehaviour {
 
     void Awake()
     {
-        Transform ejectionPointTrans = transform.FindChild("CasingSpawner");
+        ejectionPointTrans = transform.FindChild("CasingSpawner");
         ejectionLoc = ejectionPointTrans.position;
         smoke = GetComponentInChildren<ParticleSystem>();
+
         if (pelletGO != null)
         pellets = pelletGO.GetComponent<ParticleSystem>();
 
+
         shootableMask = LayerMask.GetMask("Shootable");
         gunLine = GetComponent<LineRenderer>();
-    }
 
-	// Use this for initialization
-	void Start () 
-    {
         lastShot = -lockTime;
         if (!isSemiAuto)
         {
@@ -48,25 +47,33 @@ public class Shooting : MonoBehaviour {
         }
         else
             fireRate = 0;
+    }
+
+	// Use this for initialization
+	void Start () 
+    {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-        if(Input.GetMouseButtonDown(0))
+	void Update () 
+    {
+        if (!GameManager.gamePaused)
         {
-            InvokeRepeating("Fire", 0f, fireRate);
-        }
-        if(Input.GetMouseButtonUp(0))
-        {
-            CancelInvoke();
-            PlayerController.attacking = false;
-        }
+            if (Input.GetMouseButtonDown(0))
+            {
+                InvokeRepeating("Fire", 0f, fireRate);
+            }
+            if (Input.GetMouseButtonUp(0))
+            {
+                CancelInvoke();
+                PlayerController.attacking = false;
+            }
 
-        if (Mathf.Abs(lastShot - Time.time) > lockTime)
-            gunLine.enabled = false;
+            if (Mathf.Abs(lastShot - Time.time) > 0.05f)
+                gunLine.enabled = false;
 
-        Transform ejectionPointTrans = transform.FindChild("CasingSpawner");
-        ejectionLoc = ejectionPointTrans.position;
+            ejectionLoc = ejectionPointTrans.position;
+        }
 	}
 
     void Fire()
@@ -114,10 +121,10 @@ public class Shooting : MonoBehaviour {
         pellets.Play();
 
         gunLine.enabled = true;
-        gunLine.SetPosition(0, ejectionLoc);
+        gunLine.SetPosition(0, transform.position);
 
         // Set the shootRay so that it starts at the end of the gun and points forward from the barrel.
-        shootRay.origin = ejectionLoc;
+        shootRay.origin = transform.position;
         shootRay.direction = transform.forward;
 
         if (Physics.Raycast(shootRay, out shootHit, 50f, shootableMask))

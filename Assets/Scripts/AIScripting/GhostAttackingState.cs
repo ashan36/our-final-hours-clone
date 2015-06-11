@@ -19,7 +19,6 @@ using UnityEngine;
 
         if (playerDist > 0.5f)
         {
-            Debug.Log("Switch to Chase state");
             npc.GetComponent<GhostController>().SetTransition(Transition.PlayerOutOfRange);
         }
     }
@@ -27,7 +26,9 @@ using UnityEngine;
     public override void Act(GameObject player, GameObject npc)
     {
         NavMeshAgent npcNav = npc.GetComponent<NavMeshAgent>();
+        npc.GetComponent<GhostController>().StartCoroutine("attackBehavior");
         npcNav.enabled = false;
+        Debug.Log("Attack Complete");
     }
 
 	// Use this for initialization

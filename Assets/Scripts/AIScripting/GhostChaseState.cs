@@ -18,13 +18,11 @@ public class GhostChaseState : FSMState
         float playerDist = Vector3.Distance(npcTrans.position, destination);
         if (playerDist <= 0.5f)
         {
-            Debug.Log("Switch to Attack state");
             npc.GetComponent<GhostController>().SetTransition(Transition.PlayerReached);
         }
 
         if (playerDist >= 8.0f)
         {
-            Debug.Log("Switch to Idle state");
             npc.GetComponent<GhostController>().SetTransition(Transition.PlayerLost);
         }
     }
@@ -32,7 +30,7 @@ public class GhostChaseState : FSMState
     public override void Act(GameObject player, GameObject npc)
     {
         Transform playerTrans = player.transform;
-        Transform npcTrans = npc.transform;
+//        Transform npcTrans = npc.transform;
         destination = playerTrans.position;
 
         NavMeshAgent npcNav = npc.GetComponent<NavMeshAgent>();
