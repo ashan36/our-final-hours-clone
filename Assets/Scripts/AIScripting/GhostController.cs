@@ -11,8 +11,21 @@ public class GhostController : FSMSystem
     public float attackRange;
     public float attackAngle = 45f;
 
+	/* health */
+	ObjectHealth enemyHealth;
+
+	/* for animating */
+	private GameObject eAnim;
+	private Animator animEnemy;
+
+
     void Awake()
     {
+		// eAnim = GameObject.Find ("Ghost");
+		animEnemy = this.GetComponentInChildren <Animator> ();
+
+		enemyHealth = this.GetComponentInChildren <ObjectHealth> ();
+
         elapsedTime = 0.0f;
         PlayerGO = GameObject.FindGameObjectWithTag("Player");
         playerTransform = PlayerGO.transform;
@@ -36,6 +49,11 @@ public class GhostController : FSMSystem
     {
         CurrentState.Reason(PlayerGO, this.gameObject);
         CurrentState.Act(PlayerGO, this.gameObject);
+
+		if (enemyHealth.isDead) // Enemy is dead
+		{
+			animEnemy.SetFloat ("Action", 1f);
+		}
     }
 
     public void SetTransition(Transition t)
