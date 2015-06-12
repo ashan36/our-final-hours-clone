@@ -13,6 +13,7 @@ using UnityEngine;
     {
         Transform playerTrans = player.transform;
         Transform npcTrans = npc.transform;
+        ObjectHealth npcHealth = npc.GetComponent<ObjectHealth>();
         destination = playerTrans.position;
 
         float playerDist = Vector3.Distance(npcTrans.position, destination);
@@ -20,6 +21,12 @@ using UnityEngine;
         if (playerDist > 0.5f)
         {
             npc.GetComponent<GhostController>().SetTransition(Transition.PlayerOutOfRange);
+        }
+
+        if (npcHealth.isDead)
+        {
+            Debug.Log("Switch to Dead state");
+            npc.GetComponent<GhostController>().SetTransition(Transition.NoHealth);
         }
     }
 
