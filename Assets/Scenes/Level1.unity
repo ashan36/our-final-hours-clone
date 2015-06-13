@@ -1668,6 +1668,10 @@ Prefab:
       propertyPath: m_LocalPosition.y
       value: .479999989
       objectReference: {fileID: 0}
+    - target: {fileID: 11465358, guid: 41d9d684740ca914ca710761756ad46c, type: 2}
+      propertyPath: damageAmt
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 41d9d684740ca914ca710761756ad46c, type: 2}
   m_IsPrefabParent: 0
@@ -2778,6 +2782,7 @@ GameObject:
   - 114: {fileID: 1650632073}
   - 114: {fileID: 1650632071}
   - 114: {fileID: 1650632074}
+  - 114: {fileID: 1650632075}
   m_Layer: 0
   m_Name: GlobalScriptObject
   m_TagString: ScriptObject
@@ -2828,6 +2833,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b3d8bec045b2e0549a355988dd7991fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentPoints: 0
+--- !u!114 &1650632075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1650632070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5604a521a4480c4bb6eddcafd269ddb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1653401406

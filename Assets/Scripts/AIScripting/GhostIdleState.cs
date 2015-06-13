@@ -13,6 +13,7 @@ public class GhostIdleState : FSMState
     {
         Transform playerTrans = player.transform;
         Transform npcTrans = npc.transform;
+        ObjectHealth npcHealth = npc.GetComponent<ObjectHealth>();
         destination = playerTrans.position;
 
         float playerDist = Vector3.Distance(npcTrans.position, destination);
@@ -21,6 +22,12 @@ public class GhostIdleState : FSMState
         {
             Debug.Log("Switch to Chase state");
             npc.GetComponent<GhostController>().SetTransition(Transition.PlayerSpotted);
+        }
+
+        if (npcHealth.isDead)
+        {
+            Debug.Log("Switch to Dead state");
+            npc.GetComponent<GhostController>().SetTransition(Transition.NoHealth);
         }
     }
 

@@ -36,8 +36,9 @@ public class ObjectHealth : MonoBehaviour {
     {
         if (currentHealth <= 0 && killable)
         {
-            Destroy(this.gameObject, 0.1f);
             isDead = true;
+            colliderRef.enabled = false;
+            Destroy(this.gameObject, 3f);
         }
 	}
 

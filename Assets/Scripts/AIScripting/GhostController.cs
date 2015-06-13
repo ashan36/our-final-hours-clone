@@ -11,11 +11,13 @@ public class GhostController : FSMSystem
     public float attackRange;
     public float attackAngle = 45f;
 
+    public int pointsAmt = 5;
+
 	/* health */
 	ObjectHealth enemyHealth;
 
 	/* for animating */
-	private GameObject eAnim;
+	//private GameObject eAnim;
 	private Animator animEnemy;
 
 
@@ -49,16 +51,21 @@ public class GhostController : FSMSystem
     {
         CurrentState.Reason(PlayerGO, this.gameObject);
         CurrentState.Act(PlayerGO, this.gameObject);
-
-		if (enemyHealth.isDead) // Enemy is dead
-		{
-			animEnemy.SetFloat ("Action", 1f);
-		}
     }
 
     public void SetTransition(Transition t)
     {
         PerformTransition(t);
+    }
+
+    public IEnumerator death()
+    {
+        if (enemyHealth.isDead) // Enemy is dead
+        {
+            animEnemy.SetFloat("Action", 1f);
+            NotificationsManager.DefaultNotifier.PostNotification(this, "OnEnemyKilled", pointsAmt as object);
+        }
+        yield return new WaitForSeconds(2f);
     }
 
     public IEnumerator attackBehavior()
@@ -97,8 +104,11 @@ public class GhostController : FSMSystem
         attack.AddTransition(Transition.PlayerOutOfRange, StateID.Chasing);
         attack.AddTransition(Transition.NoHealth, StateID.Dead);
 
+        GhostDeadState dead = new GhostDeadState();
+
         AddState(attack);
         AddState(chase);
         AddState(idle);
+        AddState(dead);
     }
 }
