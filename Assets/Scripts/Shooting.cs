@@ -5,6 +5,7 @@ public class Shooting : MonoBehaviour {
     public GameObject prefabCasing;
     Vector3 ejectionLoc;
     public float ejectionMult;
+    Transform ejectionPointTrans;
 
     public GameObject casing;
     Rigidbody casingRB;
@@ -28,47 +29,57 @@ public class Shooting : MonoBehaviour {
 
     void Awake()
     {
-        Transform ejectionPointTrans = transform.FindChild("CasingSpawner");
+        ejectionPointTrans = transform.FindChild("CasingSpawner");
         ejectionLoc = ejectionPointTrans.position;
         smoke = GetComponentInChildren<ParticleSystem>();
+
         if (pelletGO != null)
         pellets = pelletGO.GetComponent<ParticleSystem>();
 
+
         shootableMask = LayerMask.GetMask("Shootable");
         gunLine = GetComponent<LineRenderer>();
+
+        lastShot = -lockTime;
+        if (!isSemiAuto)
+        {
+            fireRate = lockTime;
+        }
+        else
+            fireRate = 0;
     }
 
 	// Use this for initialization
 	void Start () 
     {
-        lastShot = -lockTime;
-        if (!isSemiAuto)
-        {
-            fireRate = lockTime;
-            print(fireRate);
-        }
-        else
-            fireRate = 0;
 	}
 	
 	// Update is called once per frame
-	void Update () {
-        if(Input.GetMouseButtonDown(0))
+	void Update () 
+    {
+        if (!GameManager.gamePaused)
         {
-            InvokeRepeating("Fire", 0f, fireRate);
+            if (Input.GetMouseButtonDown(0))
+            {
+                InvokeRepeating("Fire", 0f, fireRate);
+            }
+            if (Input.GetMouseButtonUp(0))
+            {
+                CancelInvoke();
+                PlayerController.attacking = false;
+            }
+
+            if (Mathf.Abs(lastShot - Time.time) > 0.05f)
+                gunLine.enabled = false;
+
+            ejectionLoc = ejectionPointTrans.position;
         }
-        if(Input.GetMouseButtonUp(0))
-        {
-            CancelInvoke();
-        }
-        if (Mathf.Abs(lastShot - Time.time) > lockTime)
-            gunLine.enabled = false;
-        Transform ejectionPointTrans = transform.FindChild("CasingSpawner");
-        ejectionLoc = ejectionPointTrans.position;
 	}
 
     void Fire()
     {
+        PlayerController.attacking = true;
+
         approxDeltaShotTime = System.Math.Round((Mathf.Abs(lastShot - Time.time)), 2);
         if ((approxDeltaShotTime - lockTime) < 0.1f)
             return;
@@ -89,7 +100,7 @@ public class Shooting : MonoBehaviour {
 
         //Sets the ejection angle, then adds a bit of randomness to it.
         Vector3 ejectionVelocity;
-        ejectionVelocity = (-transform.forward - (0.5f * transform.right)) * 1.25f;
+        ejectionVelocity = (-transform.forward + (0.8f * transform.right)) * 1.25f;
         ejectionVelocity.y = 1f;
 
         Vector3 randVelocity = Random.insideUnitSphere;
@@ -110,11 +121,11 @@ public class Shooting : MonoBehaviour {
         pellets.Play();
 
         gunLine.enabled = true;
-        gunLine.SetPosition(0, ejectionLoc);
+        gunLine.SetPosition(0, transform.position);
 
         // Set the shootRay so that it starts at the end of the gun and points forward from the barrel.
-        shootRay.origin = ejectionLoc;
-        shootRay.direction = transform.right;
+        shootRay.origin = transform.position;
+        shootRay.direction = transform.forward;
 
         if (Physics.Raycast(shootRay, out shootHit, 50f, shootableMask))
         {

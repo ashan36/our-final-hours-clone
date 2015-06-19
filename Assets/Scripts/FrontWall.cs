@@ -4,11 +4,15 @@ using System.Collections;
 public class FrontWall : MonoBehaviour {
 	
 	public GameObject frontWall;
-
+    Color originalWallColor;
+    Color transparentWallColor;
 
 	// Use this for initialization
-	void Start () {
-	
+	void Start () 
+    {
+        originalWallColor = frontWall.GetComponent<SpriteRenderer>().color;
+        transparentWallColor = originalWallColor;
+        transparentWallColor.a = 0.1f;
 	}
 
 	void FixedUpdate () 
@@ -28,11 +32,11 @@ public class FrontWall : MonoBehaviour {
 
 	void BecomeTransparent () 
 	{
-		frontWall.GetComponent<SpriteRenderer> ().color = new Color(1f,1f,1f,0.1f);
+		frontWall.GetComponent<SpriteRenderer> ().color = transparentWallColor;
 	}
 
 	void BecomeOpaque () 
 	{
-		frontWall.GetComponent<SpriteRenderer> ().color = new Color(1f,1f,1f,1f);
+		frontWall.GetComponent<SpriteRenderer> ().color = originalWallColor;
 	}
 }

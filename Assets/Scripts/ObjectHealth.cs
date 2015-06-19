@@ -3,23 +3,27 @@ using System.Collections;
 
 public class ObjectHealth : MonoBehaviour {
 
-    public int startingHealth = 100;
-    public int currentHealth;
+    public float startingHealth = 100;
+    public float currentHealth;
+    public bool killable;
 
-    ParticleSystem hitParticles;
-    CapsuleCollider capsuleCollider;
-    SphereCollider sphereCollider;
-    BoxCollider boxCollider;
-    bool isDead;
+    public ParticleSystem hitParticles;
+    Collider colliderRef;
+
+    public bool isDead;
 
     void Awake ()
     {
         hitParticles = GetComponentInChildren<ParticleSystem>();
-        sphereCollider = GetComponent<SphereCollider>();
-        capsuleCollider = GetComponent<CapsuleCollider>();
-        boxCollider = GetComponent<BoxCollider>();
+
+        if (this.GetComponent<SphereCollider>() != null)
+        colliderRef = GetComponent<SphereCollider>();
+        if (this.GetComponent<CapsuleCollider>() != null)
+        colliderRef = GetComponent<CapsuleCollider>();
+        if (this.GetComponent<BoxCollider>() != null)
+        colliderRef = GetComponent<BoxCollider>();
+
         currentHealth = startingHealth;
-  
     }
 
 	// Use this for initialization
@@ -30,17 +34,24 @@ public class ObjectHealth : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
     {
-        if (currentHealth <= 0)
-            Destroy(this.gameObject, 0.1f);
+        if (currentHealth <= 0 && killable)
+        {
+            isDead = true;
+            colliderRef.enabled = false;
+            Destroy(this.gameObject, 3f);
+        }
 	}
 
-    public void TakeDamage(int dmgAmount, Vector3 hitPoint)
+    public void TakeDamage(float dmgAmount, Vector3 hitPoint)
     {
         if (isDead)
             return;
 
-        hitParticles.transform.position = hitPoint;
-        hitParticles.Play();
+        if (hitParticles != null)
+        {
+            hitParticles.transform.position = hitPoint;
+            hitParticles.Play();
+        }
 
         currentHealth -= dmgAmount;
     }

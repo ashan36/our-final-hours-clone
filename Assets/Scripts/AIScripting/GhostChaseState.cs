@@ -13,26 +13,31 @@ public class GhostChaseState : FSMState
     {
         Transform playerTrans = player.transform;
         Transform npcTrans = npc.transform;
+        ObjectHealth npcHealth = npc.GetComponent<ObjectHealth>();
         destination = playerTrans.position;
 
         float playerDist = Vector3.Distance(npcTrans.position, destination);
         if (playerDist <= 0.5f)
         {
-            Debug.Log("Switch to Attack state");
             npc.GetComponent<GhostController>().SetTransition(Transition.PlayerReached);
         }
 
-        if (playerDist >= 5.0f)
+        if (playerDist >= 8.0f)
         {
-            Debug.Log("Switch to Idle state");
             npc.GetComponent<GhostController>().SetTransition(Transition.PlayerLost);
+        }
+
+        if (npcHealth.isDead)
+        {
+            Debug.Log("Switch to Dead state");
+            npc.GetComponent<GhostController>().SetTransition(Transition.NoHealth);
         }
     }
 
     public override void Act(GameObject player, GameObject npc)
     {
         Transform playerTrans = player.transform;
-        Transform npcTrans = npc.transform;
+//        Transform npcTrans = npc.transform;
         destination = playerTrans.position;
 
         NavMeshAgent npcNav = npc.GetComponent<NavMeshAgent>();

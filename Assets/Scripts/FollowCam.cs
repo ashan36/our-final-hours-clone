@@ -8,22 +8,22 @@ public class FollowCam : MonoBehaviour {
     public float easing = 0.03f;
     public GameObject poi;
     public float camY;
-    Vector3 camOffset;
+    public Vector3 camOffset;
 
     void Awake()
     {
         S = this;
         camY = this.transform.position.y;
+        camOffset = new Vector3(-0.11f, 5.163f, -4.649f);
     }
 
 	// Use this for initialization
 	void Start () 
     {
-        camOffset = this.transform.position - poi.transform.position;
 	}
 	
 	// Update is called once per frame
-	void Update () 
+	void Update ()
     {
         if (poi == null) return;
 
