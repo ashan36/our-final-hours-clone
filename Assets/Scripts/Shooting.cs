@@ -120,7 +120,8 @@ public class Shooting : MonoBehaviour {
         if (pelletGO != null)
         pellets.Play();
 
-        gunLine.enabled = true;
+        /* temp comment out for testing */
+		// gunLine.enabled = true;
         gunLine.SetPosition(0, transform.position);
 
         // Set the shootRay so that it starts at the end of the gun and points forward from the barrel.

@@ -5,7 +5,7 @@ AnimationClip:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: idle-shoot-pistol
+  m_Name: death-pistol
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -18,19 +18,19 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 21300000, guid: 7cf119eccd9f01345a44fc5ce73c360a, type: 3}
+      value: {fileID: 21300000, guid: 69427e4c857b27e4ca6b65824b5fc780, type: 3}
     - time: .0833333358
-      value: {fileID: 21300000, guid: 4804f1949b850244580ce4148f441e19, type: 3}
+      value: {fileID: 21300000, guid: f00bf058fb4e57342addaa5f6067d2a0, type: 3}
     - time: .166666672
-      value: {fileID: 21300000, guid: af2fb2c9bfc9b944ab40f6eb3b9ec827, type: 3}
+      value: {fileID: 21300000, guid: 60cc92c564058da48afcf5ef1a2de638, type: 3}
     - time: .25
-      value: {fileID: 21300000, guid: bb667886677b78f4792a93a3784fdc17, type: 3}
+      value: {fileID: 21300000, guid: b0b14f65e2c4f9743a1a6e19684bf144, type: 3}
     - time: .333333343
-      value: {fileID: 21300000, guid: 4078949db98abdb408db07f76d686ac9, type: 3}
+      value: {fileID: 21300000, guid: 74812a23ebf551d47a7b170e049155d2, type: 3}
     - time: .416666657
-      value: {fileID: 21300000, guid: aa0fa8780d25a8f42b1bef31e0c04fd1, type: 3}
+      value: {fileID: 21300000, guid: 28b536fcee559144cb23d8dac830a51f, type: 3}
     - time: .5
-      value: {fileID: 21300000, guid: 7a9b4e8bba59933479402ca781d00585, type: 3}
+      value: {fileID: 21300000, guid: 470f99ea25e2cdf41b7abd23395f29e0, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -49,13 +49,13 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 7cf119eccd9f01345a44fc5ce73c360a, type: 3}
-    - {fileID: 21300000, guid: 4804f1949b850244580ce4148f441e19, type: 3}
-    - {fileID: 21300000, guid: af2fb2c9bfc9b944ab40f6eb3b9ec827, type: 3}
-    - {fileID: 21300000, guid: bb667886677b78f4792a93a3784fdc17, type: 3}
-    - {fileID: 21300000, guid: 4078949db98abdb408db07f76d686ac9, type: 3}
-    - {fileID: 21300000, guid: aa0fa8780d25a8f42b1bef31e0c04fd1, type: 3}
-    - {fileID: 21300000, guid: 7a9b4e8bba59933479402ca781d00585, type: 3}
+    - {fileID: 21300000, guid: 69427e4c857b27e4ca6b65824b5fc780, type: 3}
+    - {fileID: 21300000, guid: f00bf058fb4e57342addaa5f6067d2a0, type: 3}
+    - {fileID: 21300000, guid: 60cc92c564058da48afcf5ef1a2de638, type: 3}
+    - {fileID: 21300000, guid: b0b14f65e2c4f9743a1a6e19684bf144, type: 3}
+    - {fileID: 21300000, guid: 74812a23ebf551d47a7b170e049155d2, type: 3}
+    - {fileID: 21300000, guid: 28b536fcee559144cb23d8dac830a51f, type: 3}
+    - {fileID: 21300000, guid: 470f99ea25e2cdf41b7abd23395f29e0, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_StartTime: 0
