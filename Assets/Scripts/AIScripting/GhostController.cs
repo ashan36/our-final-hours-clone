@@ -17,13 +17,11 @@ public class GhostController : FSMSystem
 	ObjectHealth enemyHealth;
 
 	/* for animating */
-	//private GameObject eAnim;
 	private Animator animEnemy;
 
 
     void Awake()
     {
-		// eAnim = GameObject.Find ("Ghost");
 		animEnemy = this.GetComponentInChildren <Animator> ();
 
 		enemyHealth = this.GetComponentInChildren <ObjectHealth> ();
