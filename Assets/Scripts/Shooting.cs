@@ -57,29 +57,27 @@ public class Shooting : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
     {
-        if (!GameManager.gamePaused)
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                InvokeRepeating("Fire", 0f, fireRate);
-            }
-            if (Input.GetMouseButtonUp(0))
-            {
-                CancelInvoke();
-                PlayerController.attacking = false;
-            }
 
-            if (Mathf.Abs(lastShot - Time.time) > 0.05f)
-                gunLine.enabled = false;
+        if (Mathf.Abs(lastShot - Time.time) > 0.05f)
+            gunLine.enabled = false;
 
-            ejectionLoc = ejectionPointTrans.position;
-        }
+        ejectionLoc = ejectionPointTrans.position;
 	}
+
+    void PullTrigger(bool mouseDown)
+    {
+        if (mouseDown)
+        {
+             InvokeRepeating("Fire", 0.02f, fireRate);
+        }
+        if (!mouseDown)
+        {
+            CancelInvoke();
+        }
+    }
 
     void Fire()
     {
-        PlayerController.attacking = true;
-
         approxDeltaShotTime = System.Math.Round((Mathf.Abs(lastShot - Time.time)), 2);
         if ((approxDeltaShotTime - lockTime) < 0.1f)
             return;
@@ -114,6 +112,8 @@ public class Shooting : MonoBehaviour {
         casingRB.AddForce(ejectionVelocity * ejectionMult);
         casingRB.AddRelativeTorque(randAngularVelocity * 10, ForceMode.VelocityChange);
 
+        casing.transform.SetParent(null, true);
+
         //plays the GunSmoke particlesystem
         smoke.Play();
 
@@ -140,8 +140,6 @@ public class Shooting : MonoBehaviour {
         }
         else
             gunLine.SetPosition(1, shootRay.origin + shootRay.direction * 50f);
-
-        casing.transform.SetParent(null, true);
 
         //Sets the time of the last time this method was called
         lastShot = Time.time;

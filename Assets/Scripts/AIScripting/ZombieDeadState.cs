@@ -2,9 +2,9 @@
 using UnityEngine;
 using System.Collections;
 
-public class GhostDeadState : FSMState
+public class ZombieDeadState : FSMState
     {
-        public GhostDeadState() 
+        public ZombieDeadState() 
         {
             stateID = StateID.Dead;
         }
@@ -27,7 +27,7 @@ public class GhostDeadState : FSMState
                 if (npcHealth.isDead)
                 {
                     npcNav.enabled = false;
-                    npc.GetComponent<GhostController>().StartCoroutine("death");
+                    npc.GetComponent<ZombieController>().StartCoroutine("death");
                     npcRB.isKinematic = true;
                     actionFinished = true;
                 }

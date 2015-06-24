@@ -11,6 +11,7 @@ public class ObjectHealth : MonoBehaviour {
     Collider colliderRef;
 
     public bool isDead;
+    public bool hurt = false;
 
     void Awake ()
     {
@@ -53,6 +54,18 @@ public class ObjectHealth : MonoBehaviour {
             hitParticles.Play();
         }
 
-        currentHealth -= dmgAmount;
+        if (!hurt && this.tag == "Player")
+        {
+            currentHealth -= dmgAmount;
+            hurt = true;
+            NotificationsManager.DefaultNotifier.PostNotification(this, "OnPlayerHurt");
+        }
+
+        if (!hurt && this.tag == "EnemyNPC")
+        {
+            currentHealth -= dmgAmount;
+            hurt = true;
+            NotificationsManager.DefaultNotifier.PostNotification(this, "OnEnemyHurt");
+        }
     }
 }

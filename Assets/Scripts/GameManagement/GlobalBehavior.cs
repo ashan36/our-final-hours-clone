@@ -8,16 +8,6 @@ public class GlobalBehavior : MonoBehaviour {
     static bool casingLimit = false;
     static Queue<GameObject> casingStack = new Queue<GameObject>(20);
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-
     public static void CasingSpawned(GameObject casing)
     {
         if (casingLimit)
@@ -30,6 +20,5 @@ public class GlobalBehavior : MonoBehaviour {
             casingLimit = true;
 
     }
-
 
 }

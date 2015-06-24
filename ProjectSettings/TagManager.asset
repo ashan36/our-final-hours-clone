@@ -12,6 +12,7 @@ TagManager:
   - InsideFloor
   - ScriptObject
   - PauseMenu
+  - EnemyNPC
   layers:
   - Default
   - TransparentFX

@@ -31,28 +31,33 @@ public class TerminalInteraction : Trigger
 	// Use this for initialization
 	void Start () 
     {
-	
+        NotificationsManager.DefaultNotifier.AddObserver(this, "OnPlayerInteract");
 	}
 	
 	// Update is called once per frame
-    void Update()
+    void OnPlayerInteract()
+    {
+        StartCoroutine(Switch());
+    }
+
+    public IEnumerator Switch()
     {
         if (Vector3.Magnitude(triggerPosition - PlayerController.playerTrans.position) < 0.65f)
         {
-            if (Input.GetButtonDown("Use"))
+            if (!On)
             {
-                if (!On)
-                {
-                    On = true;
-                    OnTriggered();
-                    currentSprite.sprite = onSprite;
-                }
-                else
-                {
-                    On = false;
-                    OnTriggered();
-                    currentSprite.sprite = offSprite;
-                }
+                On = true;
+                OnTriggered();
+                currentSprite.sprite = onSprite;
+                yield return new WaitForSeconds(0.4f);
+            }
+
+            else
+            {
+                On = false;
+                OnTriggered();
+                currentSprite.sprite = offSprite;
+                yield return new WaitForSeconds(0.4f);
             }
         }
     }
