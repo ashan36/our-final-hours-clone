@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-    public class GhostAttackingState : FSMState
+public class ZombieAttackingState : FSMState
+{
+    public ZombieAttackingState() 
     {
-         public GhostAttackingState() 
-        {
             stateID = StateID.Attacking;
-        }
+    }
 
     public override void Reason(GameObject player, GameObject npc)
     {
@@ -20,31 +20,21 @@ using UnityEngine;
 
         if (playerDist > 0.5f)
         {
-            npc.GetComponent<GhostController>().SetTransition(Transition.PlayerOutOfRange);
+            npc.GetComponent<ZombieController>().SetTransition(Transition.PlayerOutOfRange);
         }
 
         if (npcHealth.isDead)
         {
             Debug.Log("Switch to Dead state");
-            npc.GetComponent<GhostController>().SetTransition(Transition.NoHealth);
+            npc.GetComponent<ZombieController>().SetTransition(Transition.NoHealth);
         }
     }
 
     public override void Act(GameObject player, GameObject npc)
     {
         NavMeshAgent npcNav = npc.GetComponent<NavMeshAgent>();
-        npc.GetComponent<GhostController>().StartCoroutine("attackBehavior");
+        npc.GetComponent<MonoBehaviour>().StartCoroutine("attackBehavior");
         npcNav.enabled = false;
         Debug.Log("Attack Complete");
     }
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }

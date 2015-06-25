@@ -1,7 +1,7 @@
-﻿/*using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
-public class GhostController : FSMSystem
+public class ZombieController : FSMSystem
 
 {
     protected Transform playerTransform;
@@ -14,10 +14,10 @@ public class GhostController : FSMSystem
     public int pointsAmt = 5;
 
 	/* health */
-	//ObjectHealth enemyHealth;
+	ObjectHealth enemyHealth;
 
 	/* for animating */
-/*	private Animator animEnemy;
+	private Animator animEnemy;
 
 
     void Awake()
@@ -33,11 +33,10 @@ public class GhostController : FSMSystem
         InitializeFSM();
     }
 
-	// Use this for initialization
-	void Start () 
+    void Start()
     {
-	
-	}
+        NotificationsManager.DefaultNotifier.AddObserver(this, "OnEnemyHurt");
+    }
 	
 	// Update is called once per frame
 	void Update () 
@@ -63,7 +62,7 @@ public class GhostController : FSMSystem
             animEnemy.SetFloat("Action", 1f);
             NotificationsManager.DefaultNotifier.PostNotification(this, "OnEnemyKilled", pointsAmt as object);
         }
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
     }
 
     public IEnumerator attackBehavior()
@@ -87,22 +86,27 @@ public class GhostController : FSMSystem
         yield return new WaitForSeconds(2f);
     }
 
+    void OnEnemyHurt()
+    {   
+        enemyHealth.hurt = false;
+    }
+
     private void InitializeFSM()
     {
-        GhostChaseState chase = new GhostChaseState();
+        ZombieChaseState chase = new ZombieChaseState();
         chase.AddTransition(Transition.PlayerLost, StateID.Idling);
         chase.AddTransition(Transition.PlayerReached, StateID.Attacking);
         chase.AddTransition(Transition.NoHealth, StateID.Dead);
 
-        GhostIdleState idle = new GhostIdleState();
+        ZombieIdleState idle = new ZombieIdleState();
         idle.AddTransition(Transition.PlayerSpotted, StateID.Chasing);
         idle.AddTransition(Transition.NoHealth, StateID.Dead);
 
-        GhostAttackingState attack = new GhostAttackingState();
+        ZombieAttackingState attack = new ZombieAttackingState();
         attack.AddTransition(Transition.PlayerOutOfRange, StateID.Chasing);
         attack.AddTransition(Transition.NoHealth, StateID.Dead);
 
-        GhostDeadState dead = new GhostDeadState();
+        ZombieDeadState dead = new ZombieDeadState();
 
         AddState(attack);
         AddState(chase);
@@ -110,4 +114,3 @@ public class GhostController : FSMSystem
         AddState(dead);
     }
 }
-*/

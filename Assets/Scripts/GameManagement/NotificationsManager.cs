@@ -92,8 +92,8 @@ public class NotificationsManager : MonoBehaviour
     // A notification can either be posted with a notification object or by just sending the individual components.
 
     public void PostNotification(Component aSender, string aName) { PostNotification(new Notification(aSender, aName)); }
-    public void PostNotification(Component aSender, string aName, Hashtable aData = null) { PostNotification(new Notification(aSender, aName, aData)); }
-    public void PostNotification(Component aSender, string aName, object valueArgs = null) { PostNotification(new Notification(aSender, aName, valueArgs)); }
+    public void PostNotification(Component aSender, string aName, Hashtable aData) { PostNotification(new Notification(aSender, aName, aData)); }
+    public void PostNotification(Component aSender, string aName, object eventArgs) { PostNotification(new Notification(aSender, aName, eventArgs)); }
     public void PostNotification(Notification aNotification)
     {
         // First make sure that the name of the notification is valid.
@@ -123,7 +123,7 @@ public class NotificationsManager : MonoBehaviour
             else
             {
                 // If the observer is valid, then send it the notification. The message that's sent is the name of the notification.
-                Debug.Log("Notified");
+                Debug.Log("Notified " + aNotification.name);
                 observer.SendMessage(aNotification.name, aNotification, SendMessageOptions.DontRequireReceiver);
             }
         }
@@ -183,7 +183,7 @@ public class NotificationsManager : MonoBehaviour
         public Hashtable data;
         public object EventArgs;
 
-        public Notification(Component aSender, string aName) { sender = aSender; name = aName; data = null; }
+        public Notification(Component aSender, string aName) { sender = aSender; name = aName; }
         public Notification(Component aSender, string aName, object eventArgs) { sender = aSender; name = aName; EventArgs = eventArgs; }
         public Notification(Component aSender, string aName, Hashtable aData) { sender = aSender; name = aName; data = aData; }
     }

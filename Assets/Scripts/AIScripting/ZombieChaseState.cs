@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GhostChaseState : FSMState 
+public class ZombieChaseState : FSMState 
 {
 
-    public GhostChaseState() 
+    public ZombieChaseState() 
     {
         stateID = StateID.Chasing;
     }
@@ -19,18 +19,18 @@ public class GhostChaseState : FSMState
         float playerDist = Vector3.Distance(npcTrans.position, destination);
         if (playerDist <= 0.5f)
         {
-            npc.GetComponent<GhostController>().SetTransition(Transition.PlayerReached);
+            npc.GetComponent<ZombieController>().SetTransition(Transition.PlayerReached);
         }
 
         if (playerDist >= 8.0f)
         {
-            npc.GetComponent<GhostController>().SetTransition(Transition.PlayerLost);
+            npc.GetComponent<ZombieController>().SetTransition(Transition.PlayerLost);
         }
 
         if (npcHealth.isDead)
         {
             Debug.Log("Switch to Dead state");
-            npc.GetComponent<GhostController>().SetTransition(Transition.NoHealth);
+            npc.GetComponent<ZombieController>().SetTransition(Transition.NoHealth);
         }
     }
 
@@ -46,12 +46,4 @@ public class GhostChaseState : FSMState
         npcNav.SetDestination(playerTrans.position);
     }
 	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }

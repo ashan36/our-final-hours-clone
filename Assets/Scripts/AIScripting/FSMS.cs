@@ -69,7 +69,7 @@ public enum StateID
     Idling,
     Chasing,
     Attacking,
-    Patroling,
+    Patrolling,
     Dead,
 }
  

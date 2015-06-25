@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GhostIdleState : FSMState
+public class ZombieIdleState : FSMState
 {
-        public GhostIdleState() 
+        public ZombieIdleState() 
         {
             stateID = StateID.Idling;
         }
@@ -21,13 +21,13 @@ public class GhostIdleState : FSMState
         if (playerDist < 8.0f)
         {
             Debug.Log("Switch to Chase state");
-            npc.GetComponent<GhostController>().SetTransition(Transition.PlayerSpotted);
+            npc.GetComponent<ZombieController>().SetTransition(Transition.PlayerSpotted);
         }
 
         if (npcHealth.isDead)
         {
             Debug.Log("Switch to Dead state");
-            npc.GetComponent<GhostController>().SetTransition(Transition.NoHealth);
+            npc.GetComponent<ZombieController>().SetTransition(Transition.NoHealth);
         }
     }
 

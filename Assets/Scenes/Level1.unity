@@ -744,6 +744,7 @@ MonoBehaviour:
   killable: 0
   hitParticles: {fileID: 0}
   isDead: 0
+  hurt: 0
 --- !u!65 &418475000
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1156,6 +1157,7 @@ MonoBehaviour:
   killable: 0
   hitParticles: {fileID: 0}
   isDead: 0
+  hurt: 0
 --- !u!65 &597347176
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1375,6 +1377,7 @@ MonoBehaviour:
   killable: 0
   hitParticles: {fileID: 0}
   isDead: 0
+  hurt: 0
 --- !u!1 &790965142
 GameObject:
   m_ObjectHideFlags: 0
@@ -1675,6 +1678,14 @@ Prefab:
     - target: {fileID: 11465358, guid: 41d9d684740ca914ca710761756ad46c, type: 2}
       propertyPath: lockTime
       value: .25
+      objectReference: {fileID: 0}
+    - target: {fileID: 408706, guid: 41d9d684740ca914ca710761756ad46c, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: .959999979
+      objectReference: {fileID: 0}
+    - target: {fileID: 408706, guid: 41d9d684740ca914ca710761756ad46c, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: .219999999
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 41d9d684740ca914ca710761756ad46c, type: 2}
@@ -2087,7 +2098,7 @@ Canvas:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1145643243}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_RenderMode: 1
   m_Camera: {fileID: 1789867566}
@@ -2236,6 +2247,7 @@ MonoBehaviour:
   killable: 0
   hitParticles: {fileID: 0}
   isDead: 0
+  hurt: 0
 --- !u!208 &1172436794
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -2398,7 +2410,7 @@ Transform:
   - {fileID: 537254172}
   - {fileID: 345478416}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 1
 --- !u!1 &1340310494
 GameObject:
   m_ObjectHideFlags: 0
@@ -3055,6 +3067,7 @@ MonoBehaviour:
   killable: 0
   hitParticles: {fileID: 0}
   isDead: 0
+  hurt: 0
 --- !u!65 &1872517713
 BoxCollider:
   m_ObjectHideFlags: 0
