@@ -19,6 +19,7 @@ public class ColliderTrigger : Trigger
     public override void RegisterWithManager()
     {
         identifier = managerRef.RegisterTrigger(ref triggerInstance);
+        Debug.Log("Collider identifier = " + identifier);
     }
 
     // Use this for initialization

@@ -89,6 +89,8 @@ public class ZombieController : FSMSystem
     void OnEnemyHurt()
     {   
         enemyHealth.hurt = false;
+        Debug.Log("Zombie Hurt");
+
     }
 
     private void InitializeFSM()

@@ -15,11 +15,6 @@ public sealed class TriggerManager : MonoBehaviour
             pairEvents();
         }
 
-        void Start ()
-        {
- 
-        }
-
         public int RegisterTrigger(ref Trigger triggerObject)
         {
             int identifier;
@@ -39,22 +34,59 @@ public sealed class TriggerManager : MonoBehaviour
         public void pairEvents()
         {
             Vector3 currentVector;
-            float currentDistance;
-            float shortestDistance = 200;
 
             for (int i = 0; i < eventList.Count; i++)
             {
                 int indexofMatch = 0;
+                float shortestDistance = 400;
+                float currentDistance = 0;
+
                 for (int n = 0; n < triggerList.Count; n++)
                 {
                     currentVector = triggerList[n].triggerPosition - eventList[i].objectPosition;
                     currentDistance = Math.Abs(currentVector.sqrMagnitude);
                     
 
-                    if (n == 0 || shortestDistance > currentDistance)
+                    if (n == 0 || (shortestDistance > currentDistance))
                     {
-                        shortestDistance = currentDistance;
-                        indexofMatch = n;
+                        switch (eventList[i].properties)
+                        {
+                            case 1:
+                                if (triggerList[n] is IInteractable)
+                                {
+                                    shortestDistance = currentDistance;
+                                    indexofMatch = n;
+                                    Debug.Log("identifier of match " + indexofMatch);
+                                    break;
+                                }
+                                else
+                                    break;
+
+                            case 2:
+                                if (triggerList[n] is IInteractable)
+                                {
+                                    Debug.Log("Case 2 is interactable");
+                                    break;
+                                }
+                                else
+                                {
+                                    Debug.Log("Case 2 is not interactable");
+                                    shortestDistance = currentDistance;
+                                    indexofMatch = n;
+                                    Debug.Log("identifier of match " + indexofMatch);
+                                    break;
+                                }
+
+                            case 3:
+                                shortestDistance = currentDistance;
+                                indexofMatch = n;
+                                break;
+
+                            default:
+                                shortestDistance = currentDistance;
+                                indexofMatch = n;
+                                break;
+                        }
                     }
                 }
 

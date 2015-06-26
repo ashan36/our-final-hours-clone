@@ -53,7 +53,7 @@ public class NotificationsManager : MonoBehaviour
         }
     }
 
-    // Our hashtable containing all the notifications.  Each notification in the hash table is an ArrayList that contains all the observers for that notification.
+    // Our hashtable containing all the notifications.
     private Dictionary<string, List<Component>> notifications = new Dictionary<string, List<Component>>();
 
     // AddObserver includes a version where the observer can request to only receive notifications from a specific object.  We haven't implemented that yet, so the sender value is ignored for now.
@@ -71,7 +71,7 @@ public class NotificationsManager : MonoBehaviour
         List<Component> notifyList = notifications[name] as List<Component>;
 
         // If the list of observers doesn't already contain the one that's registering, then add it.
-        if (!notifyList.Contains(observer)) { notifyList.Add(observer); }
+        if (!notifyList.Contains(observer)) { notifyList.Add(observer); Debug.Log(observer.ToString() + "added to notifications list"); }
     }
 
 
@@ -131,6 +131,7 @@ public class NotificationsManager : MonoBehaviour
         // Remove all the invalid observers
         foreach (Component observer in observersToRemove)
         {
+            Debug.Log("Removed " + observer.ToString() + "from notifications list");
             notifyList.Remove(observer);
         }
     }

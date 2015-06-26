@@ -14,6 +14,7 @@ public class DoorBehavior : MonoBehaviour, IEventListener
     public Vector3 objectPosition { get; set; }
     public int identifier { get; set; }
     public TriggerManager managerRef { get; set; }
+    public int properties { get { return 1; } }
 
     public void Awake ()
     {
@@ -30,6 +31,7 @@ public class DoorBehavior : MonoBehaviour, IEventListener
     public void ConnectToTrigger()
     {
         identifier = managerRef.RegisterEvent(ref doorBehaviorInstance);
+        Debug.Log("Door identifier = " + identifier);
     }
 
 	// Use this for initialization

@@ -11,6 +11,13 @@ public interface IEventListener
     int identifier { get; set; }
     TriggerManager managerRef { get; set; }
 
+    /* Triggering property flags
+     * 1 = Can only be triggered by interactables
+     * 2 = Cannot be triggered by interactables
+     * 3 = Can be triggered by anything
+     */
+    int properties { get; }
+
     // Register with the triggermanager
     void ConnectToTrigger();
 

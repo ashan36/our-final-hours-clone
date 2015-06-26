@@ -15,6 +15,8 @@ public class SpawnMonster : MonoBehaviour, IEventListener
     public Vector3 objectPosition { get; set; }
     public int identifier { get; set; }
     public TriggerManager managerRef { get; set; }
+    public int properties { get { return 2; } }
+
     public IEventListener listeningObjectRef;
 
     public void Awake ()
@@ -28,7 +30,7 @@ public class SpawnMonster : MonoBehaviour, IEventListener
     public void ConnectToTrigger()
     {
         identifier = managerRef.RegisterEvent(ref listeningObjectRef);
-        Debug.Log("identifier = " + identifier);
+        Debug.Log("Spawn identifier = " + identifier);
     }
 
 	// Use this for initialization
