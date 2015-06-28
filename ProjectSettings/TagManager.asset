@@ -13,6 +13,7 @@ TagManager:
   - ScriptObject
   - PauseMenu
   - EnemyNPC
+  - HUD
   layers:
   - Default
   - TransparentFX
@@ -47,6 +48,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: UI
+    uniqueID: 3707495381
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
