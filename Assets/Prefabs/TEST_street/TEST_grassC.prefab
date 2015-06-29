@@ -12,7 +12,7 @@ GameObject:
   - 65: {fileID: 6573748}
   - 23: {fileID: 2381110}
   m_Layer: 9
-  m_Name: TEST_streetC
+  m_Name: TEST_grassC
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24,7 +24,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 118566}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: -1.62920685e-07}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 8, y: .200000003, z: 8}
   m_Children: []

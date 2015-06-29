@@ -5,6 +5,8 @@ public class MapData : MonoBehaviour {
 
 	public int [,] tile;
 	int x,y;
+	int roadVar;
+	public int tileSize;
 	public int mapX;
 	public int mapY;
 	public int homeX;
@@ -14,16 +16,13 @@ public class MapData : MonoBehaviour {
 	public GameObject mapTileA;
 	public GameObject mapTileB;
 	public GameObject mapTileC;
-
-	Material theMat;
-	public Material mat1;
-	public Material mat2;
-	public Material mat3;
+	public GameObject mapHouseA;
+	public GameObject mapTileRoadA;
+	public GameObject mapTileRoadB;
 
 	// Use this for initialization
 	void Awake () 
 	{
-		theMat = mapTileStart.GetComponent <Material> ();
 
 		tile = new int[mapX, mapY];
 
@@ -36,6 +35,10 @@ public class MapData : MonoBehaviour {
 				{
 					SpawnHomeTile (x,y);
 				}
+				else if (x > homeX && y == homeY)
+				{
+					SpawnRoad (x,y);
+				}
 				else
 				{
 					SpawnMapTile (x,y);
@@ -43,28 +46,48 @@ public class MapData : MonoBehaviour {
 			}
 		}
 
-
 	}
 
 	void SpawnMapTile (int x, int y) 
 	{
-		if (tile[x,y] == 1)
+	
+
+		if (tile[x,y] == 0)
 		{
-			Instantiate(mapTileA, new Vector3(x*8,0,y*8), Quaternion.identity);
+			Instantiate(mapHouseA, new Vector3(x*tileSize,0,y*tileSize), Quaternion.identity);
+		}
+		else if (tile[x,y] == 1)
+		{
+			Instantiate(mapTileA, new Vector3(x*tileSize,0,y*tileSize), Quaternion.identity);
 		}
 		else if (tile[x,y] == 2)
 		{
-			Instantiate(mapTileB, new Vector3(x*8,0,y*8), Quaternion.identity);
+			Instantiate(mapTileB, new Vector3(x*tileSize,0,y*tileSize), Quaternion.identity);
 		}
 		else if (tile[x,y] == 3)
 		{
-			Instantiate(mapTileC, new Vector3(x*8,0,y*8), Quaternion.identity);
+			Instantiate(mapTileC, new Vector3(x*tileSize,0,y*tileSize), Quaternion.identity);
 		}
 	}
 
 	void SpawnHomeTile (int x, int y) 
 	{
-		Instantiate(mapTileStart, new Vector3(x*8,0,y*8), Quaternion.identity);
+		Instantiate(mapTileStart, new Vector3(x*tileSize,0,y*tileSize), Quaternion.identity);
 		Debug.Log ("X: " + x + ", Y: " + y + ", MapPiece: " + tile[x,y]);
+	}
+
+	void SpawnRoad (int x, int y) 
+	{
+		roadVar = Random.Range (0,2);
+		if (roadVar == 0)
+		{
+			Instantiate(mapTileRoadA, new Vector3(x*tileSize,0,y*tileSize), Quaternion.identity);
+			Debug.Log ("X: " + x + ", Y: " + y + ", MapPiece: " + tile[x,y]);
+		}
+		else if (roadVar == 1)
+		{
+			Instantiate(mapTileRoadB, new Vector3(x*tileSize,0,y*tileSize), Quaternion.identity);
+			Debug.Log ("X: " + x + ", Y: " + y + ", MapPiece: " + tile[x,y]);
+		}
 	}
 }
