@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ZombieAttackingState : FSMState
 {
+    public float attackRate;
+    float lastAttackTime;
+
     public ZombieAttackingState() 
     {
             stateID = StateID.Attacking;
@@ -33,8 +36,13 @@ public class ZombieAttackingState : FSMState
     public override void Act(GameObject player, GameObject npc)
     {
         NavMeshAgent npcNav = npc.GetComponent<NavMeshAgent>();
-        npc.GetComponent<MonoBehaviour>().StartCoroutine("attackBehavior");
         npcNav.enabled = false;
+
+        if ((Time.time - lastAttackTime) < 1.5)
+            return;
+
+        lastAttackTime = Time.time;
+        npc.GetComponent<MonoBehaviour>().StartCoroutine("attackBehavior");
         Debug.Log("Attack Complete");
     }
 }

@@ -15,18 +15,16 @@ public class TerminalInteraction : Trigger, IInteractable
 
     public override void Awake()
     {
-        managerRef = GameObject.FindGameObjectWithTag("ScriptObject").GetComponent<TriggerManager>();
         triggerInstance = this;
         triggerPosition = this.transform.position;
         RegisterWithManager();
-		
         currentSprite = GetComponentInChildren <SpriteRenderer>();
     }
 
     public override void RegisterWithManager()
     {
-        identifier = managerRef.RegisterTrigger(ref triggerInstance);
-        Debug.Log("Terminal identifier = " + identifier);
+        identifier = TriggerManager.Instance.RegisterTrigger(ref triggerInstance);
+       // Debug.Log("Terminal identifier = " + identifier);
     }
 
 	// Use this for initialization

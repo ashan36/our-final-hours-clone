@@ -9,7 +9,6 @@ public interface IEventListener
     Trigger wiredTrigger { get; set; }
     Vector3 objectPosition { get; set; }
     int identifier { get; set; }
-    TriggerManager managerRef { get; set; }
 
     /* Triggering property flags
      * 1 = Can only be triggered by interactables

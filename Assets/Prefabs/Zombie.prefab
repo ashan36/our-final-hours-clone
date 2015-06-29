@@ -136,7 +136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackDamage: 10
-  attackRange: .5
+  attackRange: .899999976
   attackAngle: 45
   pointsAmt: 5
 --- !u!114 &11478670
@@ -177,7 +177,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 153890}
   m_Enabled: 0
   m_Radius: .300000012
-  m_Speed: 3
+  m_Speed: 2.5999999
   m_Acceleration: 5.5
   avoidancePriority: 50
   m_AngularSpeed: 220

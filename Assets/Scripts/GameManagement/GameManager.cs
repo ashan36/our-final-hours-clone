@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     {
         get
         {
-            if (instance == null) instance = new GameObject("GameManager").AddComponent<GameManager>(); //create game manager object if required
+            if (instance == null) instance = new GameObject("GlobalScriptObject").AddComponent<GameManager>(); //create game manager object if required
             return instance;
         }
     }
@@ -51,8 +51,10 @@ public class GameManager : MonoBehaviour
 
         menu = GameObject.FindGameObjectWithTag("PauseMenu");
         pauseCanvas = menu.GetComponent<Canvas>();
+
         currentLevel = Application.loadedLevel;
         gamePaused = false;
+        Time.timeScale = (1);
 
     }
 
@@ -62,6 +64,15 @@ public class GameManager : MonoBehaviour
         NotificationsManager.DefaultNotifier.AddObserver(this, "OnEnemyKilled");
 	}
 	
+    void OnLevelWasLoaded(int level)
+    {
+        if (level == 1)
+        {
+            menu = GameObject.FindGameObjectWithTag("PauseMenu");
+            pauseCanvas = menu.GetComponent<Canvas>();
+        }
+    }
+
 	// Update is called once per frame
 	void Update () 
     {
@@ -69,21 +80,23 @@ public class GameManager : MonoBehaviour
         {
             gamePaused = !gamePaused;
         }
-
 	}
 
     void OnGUI ()
     {
-        if (gamePaused)
+        if (pauseCanvas != null)
         {
-            pauseCanvas.enabled = true;
-            Time.timeScale = (0);
-        }
+            if (gamePaused)
+            {
+                pauseCanvas.enabled = true;
+                Time.timeScale = (0);
+            }
 
-        if (!gamePaused)
-        {
-            pauseCanvas.enabled = false;
-            Time.timeScale = (1);
+            if (!gamePaused)
+            {
+                pauseCanvas.enabled = false;
+                Time.timeScale = (1);
+            }
         }
     }
 
@@ -94,7 +107,8 @@ public class GameManager : MonoBehaviour
 
     public void RestartClick ()
     {
-        Application.LoadLevel(currentLevel);
+        NotificationsManager.DefaultNotifier.PostNotification(this, "OnLevelRestart");
+        Application.LoadLevel(Application.loadedLevelName);
     }
 
     public void QuitClick ()
