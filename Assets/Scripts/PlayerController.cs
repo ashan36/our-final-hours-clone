@@ -311,12 +311,13 @@ public class PlayerController : MonoBehaviour {
 		 * 11 = walk shooting backwards
 		 * 12 = dodge forward
 		 * 13 = dodge backwards
-		 * 14 = death
+		 * 14 = hurt
+         * 15 = death
 		 */
 
         if (playerHealth.isDead) 									//***dead***//
         {
-	        animPlayer.SetFloat ("Action", 14f);
+	        animPlayer.SetFloat ("Action", 15f);
             yield return new WaitForSeconds(2f);
             animComplete = true;
         }

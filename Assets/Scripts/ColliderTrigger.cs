@@ -10,7 +10,6 @@ public class ColliderTrigger : Trigger
 
     public override void Awake()
     {
-        managerRef = GameObject.FindGameObjectWithTag("ScriptObject").GetComponent<TriggerManager>();
         triggerInstance = this.GetComponent<ColliderTrigger>();
         triggerPosition = this.transform.position;
         RegisterWithManager();
@@ -18,13 +17,8 @@ public class ColliderTrigger : Trigger
 
     public override void RegisterWithManager()
     {
-        identifier = managerRef.RegisterTrigger(ref triggerInstance);
-    }
-
-    // Use this for initialization
-    void Start()
-    {
-
+        identifier = TriggerManager.Instance.RegisterTrigger(ref triggerInstance);
+       // Debug.Log("Collider identifier = " + identifier);
     }
 
     // Update is called once per frame

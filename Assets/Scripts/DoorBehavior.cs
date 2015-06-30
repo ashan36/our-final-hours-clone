@@ -13,15 +13,13 @@ public class DoorBehavior : MonoBehaviour, IEventListener
     public Trigger wiredTrigger { get; set; }
     public Vector3 objectPosition { get; set; }
     public int identifier { get; set; }
-    public TriggerManager managerRef { get; set; }
+    public int properties { get { return 1; } }
 
     public void Awake ()
     {
         BoxCollider = GetComponent<BoxCollider>();
         doorMat = GetComponent<MeshRenderer>().material;
 
-
-        managerRef = GameObject.FindGameObjectWithTag("ScriptObject").GetComponent<TriggerManager>();
         doorBehaviorInstance = this.GetComponent<DoorBehavior>();
         objectPosition = this.transform.position;
         ConnectToTrigger();
@@ -29,14 +27,14 @@ public class DoorBehavior : MonoBehaviour, IEventListener
 
     public void ConnectToTrigger()
     {
-        identifier = managerRef.RegisterEvent(ref doorBehaviorInstance);
+        identifier = TriggerManager.Instance.RegisterEvent(ref doorBehaviorInstance);
+      //  Debug.Log("Door identifier = " + identifier);
     }
 
 	// Use this for initialization
 	void Start () 
     {
-
-        wiredTrigger = managerRef.getTrigger(identifier);
+        wiredTrigger = TriggerManager.Instance.getTrigger(identifier);
         wiredTrigger.tripTrigger += new Trigger.activateTriggerDelegate(doAction);
 	}
 	

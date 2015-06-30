@@ -65,7 +65,7 @@ public class ObjectHealth : MonoBehaviour {
         {
             currentHealth -= dmgAmount;
             hurt = true;
-            NotificationsManager.DefaultNotifier.PostNotification(this, "OnEnemyHurt");
+            SendMessage("OnEnemyHurt");
         }
     }
 }

@@ -17,7 +17,7 @@ public class ZombieChaseState : FSMState
         destination = playerTrans.position;
 
         float playerDist = Vector3.Distance(npcTrans.position, destination);
-        if (playerDist <= 0.5f)
+        if (playerDist <= 0.9f)
         {
             npc.GetComponent<ZombieController>().SetTransition(Transition.PlayerReached);
         }
