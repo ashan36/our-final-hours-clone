@@ -14,6 +14,7 @@ TagManager:
   - PauseMenu
   - EnemyNPC
   - HUD
+  - Navigation
   layers:
   - Default
   - TransparentFX
@@ -27,7 +28,7 @@ TagManager:
   - ground
   - Shootable
   - walls
-  - 
+  - Unwalkable
   - 
   - 
   - 

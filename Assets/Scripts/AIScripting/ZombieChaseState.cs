@@ -3,6 +3,11 @@ using System.Collections;
 
 public class ZombieChaseState : FSMState 
 {
+    bool playerDetected;
+    Transform playerTrans;
+    Transform npcTrans;
+    ObjectHealth npcHealth;
+    AINavAgent npcNav;
 
     public ZombieChaseState() 
     {
@@ -11,19 +16,23 @@ public class ZombieChaseState : FSMState
 
     public override void Reason(GameObject player, GameObject npc)
     {
-        Transform playerTrans = player.transform;
-        Transform npcTrans = npc.transform;
-        ObjectHealth npcHealth = npc.GetComponent<ObjectHealth>();
+        playerTrans = player.transform;
+        npcTrans = npc.transform;
+        npcHealth = npc.GetComponent<ObjectHealth>();
         destination = playerTrans.position;
 
         float playerDist = Vector3.Distance(npcTrans.position, destination);
+        playerDetected = npc.GetComponent<ZombieController>().sightDetector.Detect(player, npcTrans);
+
         if (playerDist <= 0.9f)
         {
+            Debug.Log("Switch to Attack state");
             npc.GetComponent<ZombieController>().SetTransition(Transition.PlayerReached);
         }
 
-        if (playerDist >= 8.0f)
+        if (playerDist >= 7.0f && !playerDetected)
         {
+            Debug.Log("Switch to Idle state");
             npc.GetComponent<ZombieController>().SetTransition(Transition.PlayerLost);
         }
 
@@ -36,14 +45,15 @@ public class ZombieChaseState : FSMState
 
     public override void Act(GameObject player, GameObject npc)
     {
-        Transform playerTrans = player.transform;
+        playerTrans = player.transform;
 //        Transform npcTrans = npc.transform;
         destination = playerTrans.position;
 
-        NavMeshAgent npcNav = npc.GetComponent<NavMeshAgent>();
+        npcNav = npc.GetComponent<AINavAgent>();
         npcNav.enabled = true;
 
-        npcNav.SetDestination(playerTrans.position);
+        npcNav.speed = 2f;
+        npcNav.SetDestination(destination);
     }
 	// Use this for initialization
 }

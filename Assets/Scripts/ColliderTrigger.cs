@@ -6,7 +6,6 @@ public class ColliderTrigger : Trigger
     public bool triggerIsTripped = false;
 
     public Trigger triggerInstance;
-    TriggerManager managerRef;
 
     public override void Awake()
     {

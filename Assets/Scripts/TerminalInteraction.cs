@@ -7,7 +7,6 @@ public class TerminalInteraction : Trigger, IInteractable
     public bool On;
 
     public Trigger triggerInstance;
-    TriggerManager managerRef;
 
     public Sprite onSprite;
     public Sprite offSprite;

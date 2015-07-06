@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour, IEmitsSound
+{
 
 	/* for movement */
     public float speed;
@@ -51,6 +52,8 @@ public class PlayerController : MonoBehaviour {
     //Weapon references
 	public int weapon = 0;
     Shooting shootingRef;
+
+    public float soundValue { get; set; }
 	
 	void Awake () 
 	{
@@ -63,6 +66,7 @@ public class PlayerController : MonoBehaviour {
 		playerHealth = this.GetComponentInChildren<ObjectHealth>();
 
         shootingRef = this.GetComponentInChildren<Shooting>();
+        soundValue = 0f;
 	}
 
     void Start ()
@@ -126,6 +130,7 @@ public class PlayerController : MonoBehaviour {
         //Aiming
         if (Input.GetKey(KeyCode.Mouse1) && isGrounded)
         {
+            soundValue = 45;
             aiming = true;
         }
         else if (Input.GetKeyUp(KeyCode.Mouse1) && isGrounded)
@@ -136,6 +141,7 @@ public class PlayerController : MonoBehaviour {
         //Shooting
         if (Input.GetMouseButton(0) && aiming)
         {
+            soundValue = 125;
             attacking = true;
         }
         else if (Input.GetMouseButtonUp(0))
@@ -149,6 +155,7 @@ public class PlayerController : MonoBehaviour {
         {
             running = true;
             walking = false;
+            soundValue = 80;
             rotateSpeed = 2.0f;
         }
         else if (Input.GetKeyUp(KeyCode.LeftShift))
@@ -161,9 +168,9 @@ public class PlayerController : MonoBehaviour {
         {
             dodging = true;
             rotateSpeed = 1.0f;
+            soundValue = 80;
             animComplete = false;
             yield return StartCoroutine(Animating(h, v));
-            animComplete = true;
         }
         if (Input.GetKeyUp(KeyCode.Space) && isGrounded && animComplete)
         {
@@ -178,6 +185,7 @@ public class PlayerController : MonoBehaviour {
         if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)) && !(h == 0 && v == 0) && isGrounded && !running && !dodging)
         {
             walking = true;
+            soundValue = 50;
             rotateSpeed = 7.0f;
         }
         else
@@ -190,6 +198,7 @@ public class PlayerController : MonoBehaviour {
         {
             knockback = true;
             animComplete = false;
+            soundValue = 80;
             yield return StartCoroutine(Animating(h, v));
         }
         else if (Input.GetKeyUp(KeyCode.F) && animComplete)
@@ -202,6 +211,7 @@ public class PlayerController : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.E) && isGrounded && animComplete)
         {
             interacting = true;
+            soundValue = 30;
             animComplete = false;
             yield return StartCoroutine(Animating(h, v));
             if (animComplete)
@@ -216,6 +226,7 @@ public class PlayerController : MonoBehaviour {
         if (!Input.anyKeyDown)
         {
             idle = true;
+            soundValue = 0f;
         }
         else
         {
@@ -335,7 +346,7 @@ public class PlayerController : MonoBehaviour {
             {
 		        if (dodging && facingRight) 			/***dodging & right***/
 		        {
-                    if (running || h > 0) //Moving righ, dodge roll forward
+                    if (running || h > 0) //Moving right, dodge roll forward
                     {
                         animPlayer.SetFloat("Action", 12f);
                         speed = dodgeSpeed;
@@ -348,6 +359,7 @@ public class PlayerController : MonoBehaviour {
                         yield return new WaitForSeconds(0.2f);
 			        }
                     dodging = false;
+                    animComplete = true;
                     rotateSpeed = 7.0f;
 		        }
 		        else if (dodging && !facingRight) 			/***dodging & left***/
@@ -365,6 +377,7 @@ public class PlayerController : MonoBehaviour {
                         yield return new WaitForSeconds(0.2f);
                     }
                     dodging = false;
+                    animComplete = true;
                     rotateSpeed = 7.0f;
 		        }
 		        else
@@ -395,7 +408,7 @@ public class PlayerController : MonoBehaviour {
 					        if(h < 0)
 					        {
 						        animPlayer.SetFloat ("Action", 10f);
-                                speed = aimSpeed; ;
+                                speed = aimSpeed;
                                 if (attacking)
                                 {
                                     animPlayer.SetFloat("Action", 11f); //aiming while moving left & attacking (backward)
@@ -407,13 +420,12 @@ public class PlayerController : MonoBehaviour {
 					        if (h >= 0)
 					        {
 						        animPlayer.SetFloat ("Action", 7f);
-                                speed = aimSpeed; ;
+                                speed = aimSpeed;
                                 if (attacking)
                                 {
                                     animPlayer.SetFloat("Action", 8f); //aiming while moving right & attacking (forward)
                                     shootingRef.SendMessage("PullTrigger", attacking);
                                     yield return new WaitForEndOfFrame();
-
                                 }
                                 else { yield return new WaitForEndOfFrame(); }
 
@@ -424,7 +436,7 @@ public class PlayerController : MonoBehaviour {
 					        if(h <= 0)
 					        {
 						        animPlayer.SetFloat ("Action", 7f);
-                                speed = aimSpeed; ;
+                                speed = aimSpeed;
 
                                 if (attacking)
                                 {
@@ -438,7 +450,8 @@ public class PlayerController : MonoBehaviour {
 					        if (h > 0)
 					        {
 						        animPlayer.SetFloat ("Action", 10f);
-                                speed = aimSpeed; 
+                                speed = aimSpeed;
+
                                 if (attacking)
                                 {
                                     animPlayer.SetFloat("Action", 11f); //aiming while moving right & attacking (backward)

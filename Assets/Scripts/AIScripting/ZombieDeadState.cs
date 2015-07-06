@@ -21,7 +21,7 @@ public class ZombieDeadState : FSMState
             if (!actionFinished)
             {
                 ObjectHealth npcHealth = npc.GetComponent<ObjectHealth>();
-                NavMeshAgent npcNav = npc.GetComponent<NavMeshAgent>();
+                AINavAgent npcNav = npc.GetComponent<AINavAgent>();
                 Rigidbody npcRB = npc.GetComponent<Rigidbody>();
 
                 if (npcHealth.isDead)

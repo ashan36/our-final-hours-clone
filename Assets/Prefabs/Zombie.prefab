@@ -43,10 +43,10 @@ GameObject:
   m_Component:
   - 4: {fileID: 490508}
   - 136: {fileID: 13694338}
-  - 195: {fileID: 19563620}
-  - 54: {fileID: 5417256}
   - 114: {fileID: 11465362}
   - 114: {fileID: 11478670}
+  - 114: {fileID: 11456302}
+  - 54: {fileID: 5444880}
   m_Layer: 10
   m_Name: Zombie
   m_TagString: EnemyNPC
@@ -92,7 +92,7 @@ Transform:
   - {fileID: 436332}
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!54 &5417256
+--- !u!54 &5444880
 Rigidbody:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -105,7 +105,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 32
   m_CollisionDetection: 0
 --- !u!95 &9506100
 Animator:
@@ -124,6 +124,19 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11456302
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 153890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3a975b9022fa9c4db9cbf4b40c93b13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  heightOffset: .449999988
 --- !u!114 &11465362
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -138,6 +151,9 @@ MonoBehaviour:
   attackDamage: 10
   attackRange: .899999976
   attackAngle: 45
+  sightRange: 5
+  sightAngle: 45
+  hearingSensitivity: 30
   pointsAmt: 5
 --- !u!114 &11478670
 MonoBehaviour:
@@ -169,26 +185,6 @@ CapsuleCollider:
   m_Height: .899999976
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!195 &19563620
-NavMeshAgent:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 153890}
-  m_Enabled: 0
-  m_Radius: .300000012
-  m_Speed: 2.5999999
-  m_Acceleration: 5.5
-  avoidancePriority: 50
-  m_AngularSpeed: 220
-  m_StoppingDistance: .150000006
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: .75
-  m_BaseOffset: .300000012
-  m_WalkableMask: 1
-  m_ObstacleAvoidanceType: 4
 --- !u!198 &19853318
 ParticleSystem:
   m_ObjectHideFlags: 1

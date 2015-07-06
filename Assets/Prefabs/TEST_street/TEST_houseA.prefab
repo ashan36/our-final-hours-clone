@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 465084}
   - 65: {fileID: 6578660}
   - 114: {fileID: 11494910}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: rightwall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,7 +26,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 444042}
   - 212: {fileID: 21230032}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: outside
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 446628}
   - 212: {fileID: 21269834}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: outside
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63,7 +63,7 @@ GameObject:
   - 114: {fileID: 11404366}
   - 65: {fileID: 6578412}
   - 65: {fileID: 6537002}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: floor
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -98,7 +98,7 @@ GameObject:
   - 4: {fileID: 464006}
   - 65: {fileID: 6521690}
   - 114: {fileID: 11418112}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: leftwall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,7 +116,7 @@ GameObject:
   - 212: {fileID: 21277008}
   - 65: {fileID: 6559796}
   - 114: {fileID: 11426514}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: backwall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,7 +132,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 414532}
   - 212: {fileID: 21208856}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: inside
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,7 +147,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 494570}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: small-grey-building
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -168,7 +168,7 @@ GameObject:
   - 65: {fileID: 6558224}
   - 208: {fileID: 20817234}
   - 114: {fileID: 11484148}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: frontwall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184,7 +184,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 414104}
   - 212: {fileID: 21253212}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: inside
   m_TagString: Untagged
   m_Icon: {fileID: 0}
