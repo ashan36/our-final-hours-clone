@@ -396,7 +396,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 490508, guid: 2ddc561be09284746beb25fd2fc4184a, type: 2}
       propertyPath: m_LocalPosition.y
-      value: .5
+      value: 1.19000006
       objectReference: {fileID: 0}
     - target: {fileID: 490508, guid: 2ddc561be09284746beb25fd2fc4184a, type: 2}
       propertyPath: m_LocalPosition.z
@@ -432,7 +432,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 153890, guid: 2ddc561be09284746beb25fd2fc4184a, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11456302, guid: 2ddc561be09284746beb25fd2fc4184a, type: 2}
+      propertyPath: rotationSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 13694338, guid: 2ddc561be09284746beb25fd2fc4184a, type: 2}
+      propertyPath: m_Height
+      value: 1.20000005
+      objectReference: {fileID: 0}
+    - target: {fileID: 11456302, guid: 2ddc561be09284746beb25fd2fc4184a, type: 2}
+      propertyPath: heightOffset
+      value: .600000024
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2ddc561be09284746beb25fd2fc4184a, type: 2}
@@ -1292,7 +1304,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1882692367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1305,6 +1317,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 4
+  rotationSpeed: 0
   heightOffset: 0
 --- !u!33 &1882692368
 MeshFilter:

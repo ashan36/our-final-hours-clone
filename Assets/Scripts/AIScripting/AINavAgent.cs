@@ -5,27 +5,64 @@ using UnityEngine;
 public class AINavAgent : MonoBehaviour
 {
     public float speed;
+    public float rotationSpeed;
     public float heightOffset;
+
+    bool followingPath = false;
+
+    Vector3 currentWaypoint;
     Vector3 destination;
     Vector3[] path;
     int targetIndex;
 
+    //For moving target tracking
+    Vector3 previousPredictedTargetPos;
+    float timer;
+
+
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-            SetDestination(PlayerController.playerTrans.position);
+        timer += Time.deltaTime;
     }
 
     public void SetDestination(Vector3 dest)
     {
         destination = dest;
         Debug.Log("Destination set");
-        PathRequestManager.Instance.RequestPath(transform.position, destination, OnPathFound);
+
+        if (!followingPath)
+            PathRequestManager.Instance.RequestPath(transform.position, destination, OnPathFound);
+        else
+        {
+            Vector3 agentPredictedPos = Vector3.MoveTowards(transform.position, currentWaypoint, speed/1.6f);
+            PathRequestManager.Instance.RequestPath(agentPredictedPos, destination, OnPathFound);
+        }
+    }
+
+    public void TrackMovingTarget(IAITrackable TargetObject)
+    {
+        float targetSpeed = TargetObject.speed;
+        float distToTarget = Vector3.Distance(TargetObject.trackingTransform.position, transform.position);
+        Vector3 currentPredictedTargetPos = TargetObject.trackingTransform.position + TargetObject.currentHeading * targetSpeed * distToTarget/10;
+
+        if (previousPredictedTargetPos != null)
+        {
+            Debug.Log("Target Prediction difference = " + Vector3.Distance(currentPredictedTargetPos, previousPredictedTargetPos));
+            if (Vector3.Distance(currentPredictedTargetPos, previousPredictedTargetPos) > 2)
+                SetDestination(currentPredictedTargetPos);
+        }
+
+        if (timer >= 1f)
+        {
+            timer = 0;
+            previousPredictedTargetPos = TargetObject.trackingTransform.position + TargetObject.currentHeading * targetSpeed * distToTarget/10;
+        }
     }
 
     public void Stop()
     {
         StopAllCoroutines();
+        followingPath = false;
     }
 
     public void Resume()
@@ -45,14 +82,18 @@ public class AINavAgent : MonoBehaviour
 
     IEnumerator FollowPath()
     {
+        followingPath = true;
+        Quaternion rotation;
+
         targetIndex = 0;
-        Vector3 currentWaypoint = path[targetIndex];
+
+        currentWaypoint = path[targetIndex];
         Debug.Log("Following Path");
         Debug.Log("Path Length: " + path.Length);
 
         while (true)
         {
-            if (transform.position == currentWaypoint)
+            if ((currentWaypoint - transform.position).magnitude < 0.2f)
             {
                 Debug.Log("WayPoint Reached");
                 targetIndex++;
@@ -63,8 +104,14 @@ public class AINavAgent : MonoBehaviour
                 }
                 currentWaypoint = path[targetIndex];
             }
-            Debug.Log("Index: " + targetIndex);
             currentWaypoint.y = heightOffset;
+
+            if ((currentWaypoint - transform.position).sqrMagnitude > 2)
+            {
+                rotation = Quaternion.LookRotation(currentWaypoint - transform.position, Vector3.up);
+                transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationSpeed * Time.deltaTime);
+            }
+
             transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
             yield return null;
         }
@@ -86,5 +133,7 @@ public class AINavAgent : MonoBehaviour
                 else Gizmos.DrawLine(path[i - 1], path[i]);
             }
         }
+        Gizmos.color = Color.black;
+        Gizmos.DrawSphere(previousPredictedTargetPos, 0.5f);
     }
 }

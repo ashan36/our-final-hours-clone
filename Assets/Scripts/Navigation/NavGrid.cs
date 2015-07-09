@@ -86,7 +86,14 @@ public class NavGrid : MonoBehaviour
         x = Mathf.RoundToInt((worldPosition.x / nodeDiameter) + (mapObject.tileSize / 2) - nodeRadius);
         y = Mathf.RoundToInt((worldPosition.z / nodeDiameter) + (mapObject.tileSize / 2) - nodeRadius);
 
-        if (x < 0 || y < 0)
+        if (x < 0)
+            x = 0;
+        if (y < 0)
+            y = 0;
+        if (x >= grid.GetLength(0))
+            x = grid.GetLength(0) - 1;
+        if (y >= grid.GetLength(1))
+            y = grid.GetLength(1) - 1;
         Debug.Log("X: " + x + " Y: " + y);
         return grid[x, y];
     }

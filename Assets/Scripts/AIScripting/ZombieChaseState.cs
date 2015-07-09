@@ -8,6 +8,7 @@ public class ZombieChaseState : FSMState
     Transform npcTrans;
     ObjectHealth npcHealth;
     AINavAgent npcNav;
+    int doOnce = 0;
 
     public ZombieChaseState() 
     {
@@ -30,11 +31,11 @@ public class ZombieChaseState : FSMState
             npc.GetComponent<ZombieController>().SetTransition(Transition.PlayerReached);
         }
 
-        if (playerDist >= 7.0f && !playerDetected)
-        {
-            Debug.Log("Switch to Idle state");
-            npc.GetComponent<ZombieController>().SetTransition(Transition.PlayerLost);
-        }
+        //if (playerDist >= 7.0f && !playerDetected)
+        //{
+        //    Debug.Log("Switch to Idle state");
+        //    npc.GetComponent<ZombieController>().SetTransition(Transition.PlayerLost);
+        //}
 
         if (npcHealth.isDead)
         {
@@ -53,7 +54,14 @@ public class ZombieChaseState : FSMState
         npcNav.enabled = true;
 
         npcNav.speed = 2f;
-        npcNav.SetDestination(destination);
+
+        if (doOnce == 0)
+        {
+            npcNav.SetDestination(destination);
+            doOnce++;
+        }
+
+        npcNav.TrackMovingTarget(player.GetComponent<PlayerController>() as IAITrackable);
     }
 	// Use this for initialization
 }

@@ -25,9 +25,10 @@ public class PathFinder : MonoBehaviour
 
         Vector3[] waypoints = new Vector3[0];
         bool pathSuccess = false;
-
+        Debug.Log("Creating Path");
         if (startNode.walkable && targetNode.walkable)
         {
+            Debug.Log("Creating Path inside first check");
             Heap<NavNode> openSet = new Heap<NavNode>(grid.MaxSize);
             HashSet<NavNode> closedSet = new HashSet<NavNode>();
             openSet.Add(startNode);
@@ -65,13 +66,14 @@ public class PathFinder : MonoBehaviour
                     }
                 }
             }
-            yield return null;
-            if (pathSuccess)
-            {
-                waypoints = RetracePath(startNode, targetNode);
-            }
-            PathRequestManager.Instance.ProcessingComplete(waypoints, pathSuccess);
         }
+        yield return null;
+
+        if (pathSuccess)
+        {
+            waypoints = RetracePath(startNode, targetNode);
+        }
+        PathRequestManager.Instance.ProcessingComplete(waypoints, pathSuccess);
     }
 
     Vector3[] RetracePath(NavNode startNode, NavNode endNode)

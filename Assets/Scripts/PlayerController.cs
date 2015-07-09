@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerController : MonoBehaviour, IEmitsSound
+public class PlayerController : MonoBehaviour, IEmitsSound, IAITrackable
 {
 
 	/* for movement */
-    public float speed;
 	public float walkSpeed = 2f;
     public float dodgeSpeed = 5f;
     public float jumpBackSpeed = 4.5f;
@@ -53,7 +52,14 @@ public class PlayerController : MonoBehaviour, IEmitsSound
 	public int weapon = 0;
     Shooting shootingRef;
 
+    //From IEmitsSound
     public float soundValue { get; set; }
+
+    //From IAITrackable
+    [SerializeField]
+    public float speed { get; set; }
+    public Transform trackingTransform { get; set; } 
+    public Vector3 currentHeading { get; set; }
 	
 	void Awake () 
 	{
@@ -62,6 +68,7 @@ public class PlayerController : MonoBehaviour, IEmitsSound
 
 		player = GameObject.FindGameObjectWithTag ("Player");
 		playerTrans = player.transform;
+        trackingTransform = player.transform;
 
 		playerHealth = this.GetComponentInChildren<ObjectHealth>();
 
@@ -122,6 +129,7 @@ public class PlayerController : MonoBehaviour, IEmitsSound
             Move(h, v);
         }
 
+        trackingTransform = player.transform;
         FollowCam.S.poi = player;
 	}
 
@@ -244,12 +252,14 @@ public class PlayerController : MonoBehaviour, IEmitsSound
         {
             movement = movement.normalized * speed * Time.deltaTime;
             playerTrans.position += movement;
+            currentHeading = movement.normalized;
         }
 
         if (running)
         {
             movement = playerTrans.forward * speed * Time.deltaTime;
             playerTrans.position += movement;
+            currentHeading = transform.forward;
         }
 
         if (dodging)
@@ -258,24 +268,28 @@ public class PlayerController : MonoBehaviour, IEmitsSound
             {
                 movement = playerTrans.forward * speed * Time.deltaTime;
                 playerTrans.position += movement;
+                currentHeading = transform.forward;
             }
 
             if (facingRight && h <= 0)
             {
                 movement = playerTrans.forward * -speed * Time.deltaTime;
                 playerTrans.position += movement;
+                currentHeading = -transform.forward;
             }
 
             if (!facingRight && h >= 0)
             {
                 movement = playerTrans.forward * -speed * Time.deltaTime;
                 playerTrans.position += movement;
+                currentHeading = -transform.forward;
             }
 
             if (!facingRight && (h < 0 || running))
             {
                 movement = playerTrans.forward * speed * Time.deltaTime;
                 playerTrans.position += movement;
+                currentHeading = transform.forward;
             }
 
 

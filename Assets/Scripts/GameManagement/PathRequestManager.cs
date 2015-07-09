@@ -43,8 +43,10 @@ public class PathRequestManager : MonoBehaviour
 
     void TryProcessNext()
     {
+        Debug.Log("Currently processing?" + isProcessing.ToString());
         if (!isProcessing && pathRequestQueue.Count > 0)
         {
+            Debug.Log("Processing next");
             currentPathRequest = pathRequestQueue.Dequeue();
             isProcessing = true;
             pathFinder.FindPath(currentPathRequest.pathStart, currentPathRequest.pathEnd);
@@ -55,8 +57,9 @@ public class PathRequestManager : MonoBehaviour
     {
         currentPathRequest.callback(path, success);
         isProcessing = false;
+        Debug.Log("Processing Complete");
         TryProcessNext();
-    }    int gridSizeX, gridSizeY;
+    }
 
     struct PathRequest
     {
