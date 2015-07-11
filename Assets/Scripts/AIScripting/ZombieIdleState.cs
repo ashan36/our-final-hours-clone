@@ -4,21 +4,45 @@ using UnityEngine;
 
 public class ZombieIdleState : FSMState
 {
-        public ZombieIdleState() 
-        {
-            stateID = StateID.Idling;
-        }
+    bool playerInSight = true;
+    bool playerHeard;
+
+    Transform playerTrans;
+    Transform npcTrans;
+    ObjectHealth npcHealth;
+    AINavAgent npcNav;
+        
+    public ZombieIdleState() 
+    {
+        stateID = StateID.Idling;
+    }
 
     public override void Reason(GameObject player, GameObject npc)
     {
-        Transform playerTrans = player.transform;
-        Transform npcTrans = npc.transform;
-        ObjectHealth npcHealth = npc.GetComponent<ObjectHealth>();
+        playerTrans = player.transform;
+        npcTrans = npc.transform;
+        npcHealth = npc.GetComponent<ObjectHealth>();
         destination = playerTrans.position;
 
         float playerDist = Vector3.Distance(npcTrans.position, destination);
 
-        if (playerDist < 8.0f)
+        if (playerDist < 12)
+        {
+           playerInSight = npc.GetComponent<ZombieController>().sightDetector.Detect(player, npcTrans);
+        }
+
+        //if (playerDist < 15)
+        //{
+        //    playerHeard = npc.GetComponent<ZombieController>().soundDetector.Detect(player.GetComponent<PlayerController>(), playerDist);
+        //}
+
+        if (playerHeard && !playerInSight)
+        {
+            Debug.Log("Switch to Alert state");
+            npc.GetComponent<ZombieController>().SetTransition(Transition.PlayerHeard);
+        }
+
+        if (playerInSight)
         {
             Debug.Log("Switch to Chase state");
             npc.GetComponent<ZombieController>().SetTransition(Transition.PlayerSpotted);
@@ -33,17 +57,8 @@ public class ZombieIdleState : FSMState
 
     public override void Act(GameObject player, GameObject npc)
     {
-        NavMeshAgent npcNav = npc.GetComponent<NavMeshAgent>();
-        npcNav.enabled = false;
+        npcTrans = npc.transform;
+        npcNav = npc.GetComponent<AINavAgent>();
+        npcNav.Stop();
     }
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }

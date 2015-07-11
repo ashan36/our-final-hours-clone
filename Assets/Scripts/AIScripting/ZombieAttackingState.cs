@@ -21,7 +21,7 @@ public class ZombieAttackingState : FSMState
 
         float playerDist = Vector3.Distance(npcTrans.position, destination);
 
-        if (playerDist > 0.5f)
+        if (playerDist > 0.8f)
         {
             npc.GetComponent<ZombieController>().SetTransition(Transition.PlayerOutOfRange);
         }
@@ -35,8 +35,8 @@ public class ZombieAttackingState : FSMState
 
     public override void Act(GameObject player, GameObject npc)
     {
-        NavMeshAgent npcNav = npc.GetComponent<NavMeshAgent>();
-        npcNav.enabled = false;
+        AINavAgent npcNav = npc.GetComponent<AINavAgent>();
+        npcNav.Stop();
 
         if ((Time.time - lastAttackTime) < 1.5)
             return;

@@ -11,7 +11,14 @@ public class ZombieController : FSMSystem
     public float attackRange;
     public float attackAngle = 45f;
 
+    public float sightRange = 8f;
+    public float sightAngle = 45f;
+    public float hearingSensitivity = 20f;
+
     public int pointsAmt = 5;
+
+    public SightDetection sightDetector;
+    public SoundDetection soundDetector;
 
 	/* health */
 	ObjectHealth enemyHealth;
@@ -29,6 +36,9 @@ public class ZombieController : FSMSystem
         elapsedTime = 0.0f;
         PlayerGO = GameObject.FindGameObjectWithTag("Player");
         playerTransform = PlayerGO.transform;
+
+        sightDetector = new SightDetection(sightRange, sightAngle);
+        soundDetector = new SoundDetection(hearingSensitivity);
 
         InitializeFSM();
     }
@@ -102,17 +112,24 @@ public class ZombieController : FSMSystem
 
         ZombieIdleState idle = new ZombieIdleState();
         idle.AddTransition(Transition.PlayerSpotted, StateID.Chasing);
+        idle.AddTransition(Transition.PlayerHeard, StateID.Alert);
         idle.AddTransition(Transition.NoHealth, StateID.Dead);
 
         ZombieAttackingState attack = new ZombieAttackingState();
         attack.AddTransition(Transition.PlayerOutOfRange, StateID.Chasing);
         attack.AddTransition(Transition.NoHealth, StateID.Dead);
 
+        ZombieAlertState alert = new ZombieAlertState();
+        alert.AddTransition(Transition.PlayerLost, StateID.Idling);
+        alert.AddTransition(Transition.PlayerSpotted, StateID.Chasing);
+        alert.AddTransition(Transition.NoHealth, StateID.Dead);
+
         ZombieDeadState dead = new ZombieDeadState();
 
         AddState(attack);
         AddState(chase);
         AddState(idle);
+        AddState(alert);
         AddState(dead);
     }
 }
