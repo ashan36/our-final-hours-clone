@@ -87,6 +87,10 @@ ModelImporter:
     100158: ThumbTip.l_end
     100160: ThumbTip.r
     100162: ThumbTip.r_end
+    100164: Shirt
+    100166: chest0
+    100168: chest1
+    100170: chest12
     400000: Ankle.l
     400002: Ankle.r
     400004: Arm.l
@@ -169,14 +173,26 @@ ModelImporter:
     400158: ThumbTip.l_end
     400160: ThumbTip.r
     400162: ThumbTip.r_end
+    400164: Shirt
+    400166: chest0
+    400168: chest1
+    400170: chest12
     4300000: PlayerBody
     4300002: Jacket
+    4300004: Shirt
+    4300006: chest0
+    4300008: chest1
+    4300010: chest12
     7400000: Armature|Idle
     7400002: Armature|Run
     7400004: Armature|Run0
     9500000: //RootNode
     13700000: Jacket
     13700002: PlayerBody
+    13700004: Shirt
+    13700006: chest0
+    13700008: chest1
+    13700010: chest12
   materials:
     importMaterials: 1
     materialName: 0
