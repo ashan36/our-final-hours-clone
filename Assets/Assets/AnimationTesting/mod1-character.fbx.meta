@@ -1,0 +1,633 @@
+fileFormatVersion: 2
+guid: 69718a3652332b0498947c9ae8e76c34
+timeCreated: 1436600475
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: Ankle.l
+    100002: Ankle.r
+    100004: Arm.l
+    100006: Arm.r
+    100008: Armature
+    100010: Chest
+    100012: Foot.l
+    100014: Foot.l_end
+    100016: Foot.r
+    100018: Foot.r_end
+    100020: ForeArm.l
+    100022: ForeArm.r
+    100024: Hip.l
+    100026: Hip.r
+    100028: IndexBase.l
+    100030: IndexBase.r
+    100032: IndexFinger.l
+    100034: IndexFinger.r
+    100036: IndexMid.l
+    100038: IndexMid.r
+    100040: IndexNear.l
+    100042: IndexNear.r
+    100044: IndexTip.l
+    100046: IndexTip.l_end
+    100048: IndexTip.r
+    100050: IndexTip.r_end
+    100052: Jacket
+    100054: MiddleBase.l
+    100056: MiddleBase.r
+    100058: MiddleFinger.l
+    100060: MiddleFinger.r
+    100062: MiddleMid.l
+    100064: MiddleMid.r
+    100066: MiddleNear.l
+    100068: MiddleNear.r
+    100070: MiddleTip.l
+    100072: MiddleTip.l_end
+    100074: MiddleTip.r
+    100076: MiddleTip.r_end
+    100078: //RootNode
+    100080: Neck
+    100082: Neck_end
+    100084: PinkyBase.l
+    100086: PinkyBase.r
+    100088: PinkyFinger.l
+    100090: PinkyFinger.r
+    100092: PinkyMid.l
+    100094: PinkyMid.r
+    100096: PinkyNear.l
+    100098: PinkyNear.r
+    100100: PinkyTip.l
+    100102: PinkyTip.l_end
+    100104: PinkyTip.r
+    100106: PinkyTip.r_end
+    100108: PlayerBody
+    100110: RingBase.l
+    100112: RingBase.r
+    100114: RingFinger.l
+    100116: RingFinger.r
+    100118: RingMid.l
+    100120: RingMid.r
+    100122: RingNear.l
+    100124: RingNear.r
+    100126: RingTip.l
+    100128: RingTip.l_end
+    100130: RingTip.r
+    100132: RingTip.r_end
+    100134: Root
+    100136: Shin.l
+    100138: Shin.r
+    100140: Shoulder.l
+    100142: Shoulder.r
+    100144: Thigh.l
+    100146: Thigh.r
+    100148: Thumb.l
+    100150: Thumb.r
+    100152: ThumbBase.l
+    100154: ThumbBase.r
+    100156: ThumbTip.l
+    100158: ThumbTip.l_end
+    100160: ThumbTip.r
+    100162: ThumbTip.r_end
+    100164: Shirt
+    100166: chest0
+    100168: chest1
+    100170: chest12
+    400000: Ankle.l
+    400002: Ankle.r
+    400004: Arm.l
+    400006: Arm.r
+    400008: Armature
+    400010: Chest
+    400012: Foot.l
+    400014: Foot.l_end
+    400016: Foot.r
+    400018: Foot.r_end
+    400020: ForeArm.l
+    400022: ForeArm.r
+    400024: Hip.l
+    400026: Hip.r
+    400028: IndexBase.l
+    400030: IndexBase.r
+    400032: IndexFinger.l
+    400034: IndexFinger.r
+    400036: IndexMid.l
+    400038: IndexMid.r
+    400040: IndexNear.l
+    400042: IndexNear.r
+    400044: IndexTip.l
+    400046: IndexTip.l_end
+    400048: IndexTip.r
+    400050: IndexTip.r_end
+    400052: Jacket
+    400054: MiddleBase.l
+    400056: MiddleBase.r
+    400058: MiddleFinger.l
+    400060: MiddleFinger.r
+    400062: MiddleMid.l
+    400064: MiddleMid.r
+    400066: MiddleNear.l
+    400068: MiddleNear.r
+    400070: MiddleTip.l
+    400072: MiddleTip.l_end
+    400074: MiddleTip.r
+    400076: MiddleTip.r_end
+    400078: //RootNode
+    400080: Neck
+    400082: Neck_end
+    400084: PinkyBase.l
+    400086: PinkyBase.r
+    400088: PinkyFinger.l
+    400090: PinkyFinger.r
+    400092: PinkyMid.l
+    400094: PinkyMid.r
+    400096: PinkyNear.l
+    400098: PinkyNear.r
+    400100: PinkyTip.l
+    400102: PinkyTip.l_end
+    400104: PinkyTip.r
+    400106: PinkyTip.r_end
+    400108: PlayerBody
+    400110: RingBase.l
+    400112: RingBase.r
+    400114: RingFinger.l
+    400116: RingFinger.r
+    400118: RingMid.l
+    400120: RingMid.r
+    400122: RingNear.l
+    400124: RingNear.r
+    400126: RingTip.l
+    400128: RingTip.l_end
+    400130: RingTip.r
+    400132: RingTip.r_end
+    400134: Root
+    400136: Shin.l
+    400138: Shin.r
+    400140: Shoulder.l
+    400142: Shoulder.r
+    400144: Thigh.l
+    400146: Thigh.r
+    400148: Thumb.l
+    400150: Thumb.r
+    400152: ThumbBase.l
+    400154: ThumbBase.r
+    400156: ThumbTip.l
+    400158: ThumbTip.l_end
+    400160: ThumbTip.r
+    400162: ThumbTip.r_end
+    400164: Shirt
+    400166: chest0
+    400168: chest1
+    400170: chest12
+    4300000: PlayerBody
+    4300002: Jacket
+    4300004: Shirt
+    4300006: chest0
+    4300008: chest1
+    4300010: chest12
+    7400000: Armature|Idle
+    7400002: Armature|Run
+    7400004: Armature|Run0
+    9500000: //RootNode
+    13700000: Jacket
+    13700002: PlayerBody
+    13700004: Shirt
+    13700006: chest0
+    13700008: chest1
+    13700010: chest12
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Armature|Idle
+      takeName: Armature|Idle
+      firstFrame: 0
+      lastFrame: 59
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Hip.l
+        weight: 1
+      - path: Armature/Hip.l/Thigh.l
+        weight: 1
+      - path: Armature/Hip.l/Thigh.l/Shin.l
+        weight: 1
+      - path: Armature/Hip.l/Thigh.l/Shin.l/Ankle.l
+        weight: 1
+      - path: Armature/Hip.l/Thigh.l/Shin.l/Ankle.l/Foot.l
+        weight: 1
+      - path: Armature/Hip.l/Thigh.l/Shin.l/Ankle.l/Foot.l/Foot.l_end
+        weight: 1
+      - path: Armature/Hip.r
+        weight: 1
+      - path: Armature/Hip.r/Thigh.r
+        weight: 1
+      - path: Armature/Hip.r/Thigh.r/Shin.r
+        weight: 1
+      - path: Armature/Hip.r/Thigh.r/Shin.r/Ankle.r
+        weight: 1
+      - path: Armature/Hip.r/Thigh.r/Shin.r/Ankle.r/Foot.r
+        weight: 1
+      - path: Armature/Hip.r/Thigh.r/Shin.r/Ankle.r/Foot.r/Foot.r_end
+        weight: 1
+      - path: Armature/Root
+        weight: 1
+      - path: Armature/Root/Chest
+        weight: 1
+      - path: Armature/Root/Chest/Neck
+        weight: 1
+      - path: Armature/Root/Chest/Neck/Neck_end
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/IndexBase.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/IndexBase.l/IndexFinger.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/IndexBase.l/IndexFinger.l/IndexMid.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/IndexBase.l/IndexFinger.l/IndexMid.l/IndexNear.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/IndexBase.l/IndexFinger.l/IndexMid.l/IndexNear.l/IndexTip.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/IndexBase.l/IndexFinger.l/IndexMid.l/IndexNear.l/IndexTip.l/IndexTip.l_end
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/MiddleBase.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/MiddleBase.l/MiddleFinger.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/MiddleBase.l/MiddleFinger.l/MiddleMid.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/MiddleBase.l/MiddleFinger.l/MiddleMid.l/MiddleNear.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/MiddleBase.l/MiddleFinger.l/MiddleMid.l/MiddleNear.l/MiddleTip.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/MiddleBase.l/MiddleFinger.l/MiddleMid.l/MiddleNear.l/MiddleTip.l/MiddleTip.l_end
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/PinkyBase.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/PinkyBase.l/PinkyFinger.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/PinkyBase.l/PinkyFinger.l/PinkyMid.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/PinkyBase.l/PinkyFinger.l/PinkyMid.l/PinkyNear.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/PinkyBase.l/PinkyFinger.l/PinkyMid.l/PinkyNear.l/PinkyTip.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/PinkyBase.l/PinkyFinger.l/PinkyMid.l/PinkyNear.l/PinkyTip.l/PinkyTip.l_end
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/RingBase.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/RingBase.l/RingFinger.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/RingBase.l/RingFinger.l/RingMid.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/RingBase.l/RingFinger.l/RingMid.l/RingNear.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/RingBase.l/RingFinger.l/RingMid.l/RingNear.l/RingTip.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/RingBase.l/RingFinger.l/RingMid.l/RingNear.l/RingTip.l/RingTip.l_end
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/ThumbBase.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/ThumbBase.l/Thumb.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/ThumbBase.l/Thumb.l/ThumbTip.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/ThumbBase.l/Thumb.l/ThumbTip.l/ThumbTip.l_end
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/IndexBase.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/IndexBase.r/IndexFinger.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/IndexBase.r/IndexFinger.r/IndexMid.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/IndexBase.r/IndexFinger.r/IndexMid.r/IndexNear.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/IndexBase.r/IndexFinger.r/IndexMid.r/IndexNear.r/IndexTip.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/IndexBase.r/IndexFinger.r/IndexMid.r/IndexNear.r/IndexTip.r/IndexTip.r_end
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/MiddleBase.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/MiddleBase.r/MiddleFinger.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/MiddleBase.r/MiddleFinger.r/MiddleMid.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/MiddleBase.r/MiddleFinger.r/MiddleMid.r/MiddleNear.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/MiddleBase.r/MiddleFinger.r/MiddleMid.r/MiddleNear.r/MiddleTip.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/MiddleBase.r/MiddleFinger.r/MiddleMid.r/MiddleNear.r/MiddleTip.r/MiddleTip.r_end
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/PinkyBase.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/PinkyBase.r/PinkyFinger.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/PinkyBase.r/PinkyFinger.r/PinkyMid.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/PinkyBase.r/PinkyFinger.r/PinkyMid.r/PinkyNear.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/PinkyBase.r/PinkyFinger.r/PinkyMid.r/PinkyNear.r/PinkyTip.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/PinkyBase.r/PinkyFinger.r/PinkyMid.r/PinkyNear.r/PinkyTip.r/PinkyTip.r_end
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/RingBase.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/RingBase.r/RingFinger.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/RingBase.r/RingFinger.r/RingMid.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/RingBase.r/RingFinger.r/RingMid.r/RingNear.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/RingBase.r/RingFinger.r/RingMid.r/RingNear.r/RingTip.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/RingBase.r/RingFinger.r/RingMid.r/RingNear.r/RingTip.r/RingTip.r_end
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/ThumbBase.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/ThumbBase.r/Thumb.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/ThumbBase.r/Thumb.r/ThumbTip.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/ThumbBase.r/Thumb.r/ThumbTip.r/ThumbTip.r_end
+        weight: 1
+      - path: Jacket
+        weight: 1
+      - path: PlayerBody
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Armature|Run
+      takeName: Armature|Run
+      firstFrame: 0
+      lastFrame: 40
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Hip.l
+        weight: 1
+      - path: Armature/Hip.l/Thigh.l
+        weight: 1
+      - path: Armature/Hip.l/Thigh.l/Shin.l
+        weight: 1
+      - path: Armature/Hip.l/Thigh.l/Shin.l/Ankle.l
+        weight: 1
+      - path: Armature/Hip.l/Thigh.l/Shin.l/Ankle.l/Foot.l
+        weight: 1
+      - path: Armature/Hip.l/Thigh.l/Shin.l/Ankle.l/Foot.l/Foot.l_end
+        weight: 1
+      - path: Armature/Hip.r
+        weight: 1
+      - path: Armature/Hip.r/Thigh.r
+        weight: 1
+      - path: Armature/Hip.r/Thigh.r/Shin.r
+        weight: 1
+      - path: Armature/Hip.r/Thigh.r/Shin.r/Ankle.r
+        weight: 1
+      - path: Armature/Hip.r/Thigh.r/Shin.r/Ankle.r/Foot.r
+        weight: 1
+      - path: Armature/Hip.r/Thigh.r/Shin.r/Ankle.r/Foot.r/Foot.r_end
+        weight: 1
+      - path: Armature/Root
+        weight: 1
+      - path: Armature/Root/Chest
+        weight: 1
+      - path: Armature/Root/Chest/Neck
+        weight: 1
+      - path: Armature/Root/Chest/Neck/Neck_end
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/IndexBase.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/IndexBase.l/IndexFinger.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/IndexBase.l/IndexFinger.l/IndexMid.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/IndexBase.l/IndexFinger.l/IndexMid.l/IndexNear.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/IndexBase.l/IndexFinger.l/IndexMid.l/IndexNear.l/IndexTip.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/IndexBase.l/IndexFinger.l/IndexMid.l/IndexNear.l/IndexTip.l/IndexTip.l_end
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/MiddleBase.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/MiddleBase.l/MiddleFinger.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/MiddleBase.l/MiddleFinger.l/MiddleMid.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/MiddleBase.l/MiddleFinger.l/MiddleMid.l/MiddleNear.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/MiddleBase.l/MiddleFinger.l/MiddleMid.l/MiddleNear.l/MiddleTip.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/MiddleBase.l/MiddleFinger.l/MiddleMid.l/MiddleNear.l/MiddleTip.l/MiddleTip.l_end
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/PinkyBase.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/PinkyBase.l/PinkyFinger.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/PinkyBase.l/PinkyFinger.l/PinkyMid.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/PinkyBase.l/PinkyFinger.l/PinkyMid.l/PinkyNear.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/PinkyBase.l/PinkyFinger.l/PinkyMid.l/PinkyNear.l/PinkyTip.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/PinkyBase.l/PinkyFinger.l/PinkyMid.l/PinkyNear.l/PinkyTip.l/PinkyTip.l_end
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/RingBase.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/RingBase.l/RingFinger.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/RingBase.l/RingFinger.l/RingMid.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/RingBase.l/RingFinger.l/RingMid.l/RingNear.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/RingBase.l/RingFinger.l/RingMid.l/RingNear.l/RingTip.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/RingBase.l/RingFinger.l/RingMid.l/RingNear.l/RingTip.l/RingTip.l_end
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/ThumbBase.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/ThumbBase.l/Thumb.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/ThumbBase.l/Thumb.l/ThumbTip.l
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.l/Arm.l/ForeArm.l/ThumbBase.l/Thumb.l/ThumbTip.l/ThumbTip.l_end
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/IndexBase.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/IndexBase.r/IndexFinger.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/IndexBase.r/IndexFinger.r/IndexMid.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/IndexBase.r/IndexFinger.r/IndexMid.r/IndexNear.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/IndexBase.r/IndexFinger.r/IndexMid.r/IndexNear.r/IndexTip.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/IndexBase.r/IndexFinger.r/IndexMid.r/IndexNear.r/IndexTip.r/IndexTip.r_end
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/MiddleBase.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/MiddleBase.r/MiddleFinger.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/MiddleBase.r/MiddleFinger.r/MiddleMid.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/MiddleBase.r/MiddleFinger.r/MiddleMid.r/MiddleNear.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/MiddleBase.r/MiddleFinger.r/MiddleMid.r/MiddleNear.r/MiddleTip.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/MiddleBase.r/MiddleFinger.r/MiddleMid.r/MiddleNear.r/MiddleTip.r/MiddleTip.r_end
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/PinkyBase.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/PinkyBase.r/PinkyFinger.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/PinkyBase.r/PinkyFinger.r/PinkyMid.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/PinkyBase.r/PinkyFinger.r/PinkyMid.r/PinkyNear.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/PinkyBase.r/PinkyFinger.r/PinkyMid.r/PinkyNear.r/PinkyTip.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/PinkyBase.r/PinkyFinger.r/PinkyMid.r/PinkyNear.r/PinkyTip.r/PinkyTip.r_end
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/RingBase.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/RingBase.r/RingFinger.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/RingBase.r/RingFinger.r/RingMid.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/RingBase.r/RingFinger.r/RingMid.r/RingNear.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/RingBase.r/RingFinger.r/RingMid.r/RingNear.r/RingTip.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/RingBase.r/RingFinger.r/RingMid.r/RingNear.r/RingTip.r/RingTip.r_end
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/ThumbBase.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/ThumbBase.r/Thumb.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/ThumbBase.r/Thumb.r/ThumbTip.r
+        weight: 1
+      - path: Armature/Root/Chest/Shoulder.r/Arm.r/ForeArm.r/ThumbBase.r/Thumb.r/ThumbTip.r/ThumbTip.r_end
+        weight: 1
+      - path: Jacket
+        weight: 1
+      - path: PlayerBody
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
