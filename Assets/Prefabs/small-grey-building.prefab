@@ -436,6 +436,9 @@ MonoBehaviour:
   startingHealth: 100
   currentHealth: 0
   killable: 0
+  hitParticles: {fileID: 0}
+  isDead: 0
+  hurt: 0
 --- !u!114 &11432932
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -462,6 +465,9 @@ MonoBehaviour:
   startingHealth: 100
   currentHealth: 0
   killable: 0
+  hitParticles: {fileID: 0}
+  isDead: 0
+  hurt: 0
 --- !u!114 &11488990
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -476,6 +482,9 @@ MonoBehaviour:
   startingHealth: 100
   currentHealth: 0
   killable: 0
+  hitParticles: {fileID: 0}
+  isDead: 0
+  hurt: 0
 --- !u!114 &11489372
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -490,6 +499,9 @@ MonoBehaviour:
   startingHealth: 100
   currentHealth: 0
   killable: 0
+  hitParticles: {fileID: 0}
+  isDead: 0
+  hurt: 0
 --- !u!208 &20803238
 NavMeshObstacle:
   m_ObjectHideFlags: 1
@@ -684,7 +696,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: c63258917f8ca8a47a62f7c7fac7c7bb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000

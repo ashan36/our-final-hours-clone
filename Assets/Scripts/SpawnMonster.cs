@@ -14,12 +14,12 @@ public class SpawnMonster : MonoBehaviour, IEventListener
     public Trigger wiredTrigger { get; set; }
     public Vector3 objectPosition { get; set; }
     public int identifier { get; set; }
-    public TriggerManager managerRef { get; set; }
+    public int properties { get { return 2; } }
+
     public IEventListener listeningObjectRef;
 
     public void Awake ()
     {
-        managerRef = GameObject.FindGameObjectWithTag("ScriptObject").GetComponent<TriggerManager>();
         listeningObjectRef = this.GetComponent<SpawnMonster>();
         objectPosition = this.transform.position;
         ConnectToTrigger();
@@ -27,8 +27,8 @@ public class SpawnMonster : MonoBehaviour, IEventListener
 
     public void ConnectToTrigger()
     {
-        identifier = managerRef.RegisterEvent(ref listeningObjectRef);
-        Debug.Log("identifier = " + identifier);
+        identifier = TriggerManager.Instance.RegisterEvent(ref listeningObjectRef);
+      //  Debug.Log("Spawn identifier = " + identifier);
     }
 
 	// Use this for initialization
@@ -36,7 +36,7 @@ public class SpawnMonster : MonoBehaviour, IEventListener
     {
         monsterDiameter = (2 * monsterPrefab.GetComponent<CapsuleCollider>().radius) + 0.1f;
 
-        wiredTrigger = managerRef.getTrigger(identifier);
+        wiredTrigger = TriggerManager.Instance.getTrigger(identifier);
         wiredTrigger.tripTrigger += new Trigger.activateTriggerDelegate(doAction);
 	}
 	

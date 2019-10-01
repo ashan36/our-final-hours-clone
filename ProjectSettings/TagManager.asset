@@ -12,6 +12,9 @@ TagManager:
   - InsideFloor
   - ScriptObject
   - PauseMenu
+  - EnemyNPC
+  - HUD
+  - Navigation
   layers:
   - Default
   - TransparentFX
@@ -25,7 +28,7 @@ TagManager:
   - ground
   - Shootable
   - walls
-  - 
+  - Unwalkable
   - 
   - 
   - 
@@ -46,6 +49,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: UI
+    uniqueID: 3707495381
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

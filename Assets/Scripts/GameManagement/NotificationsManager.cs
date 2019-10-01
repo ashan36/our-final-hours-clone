@@ -53,7 +53,7 @@ public class NotificationsManager : MonoBehaviour
         }
     }
 
-    // Our hashtable containing all the notifications.  Each notification in the hash table is an ArrayList that contains all the observers for that notification.
+    // Our hashtable containing all the notifications.
     private Dictionary<string, List<Component>> notifications = new Dictionary<string, List<Component>>();
 
     // AddObserver includes a version where the observer can request to only receive notifications from a specific object.  We haven't implemented that yet, so the sender value is ignored for now.
@@ -71,7 +71,7 @@ public class NotificationsManager : MonoBehaviour
         List<Component> notifyList = notifications[name] as List<Component>;
 
         // If the list of observers doesn't already contain the one that's registering, then add it.
-        if (!notifyList.Contains(observer)) { notifyList.Add(observer); }
+        if (!notifyList.Contains(observer)) { notifyList.Add(observer); Debug.Log(observer.ToString() + "added to notifications list"); }
     }
 
 
@@ -92,8 +92,8 @@ public class NotificationsManager : MonoBehaviour
     // A notification can either be posted with a notification object or by just sending the individual components.
 
     public void PostNotification(Component aSender, string aName) { PostNotification(new Notification(aSender, aName)); }
-    public void PostNotification(Component aSender, string aName, Hashtable aData = null) { PostNotification(new Notification(aSender, aName, aData)); }
-    public void PostNotification(Component aSender, string aName, object valueArgs = null) { PostNotification(new Notification(aSender, aName, valueArgs)); }
+    public void PostNotification(Component aSender, string aName, Hashtable aData) { PostNotification(new Notification(aSender, aName, aData)); }
+    public void PostNotification(Component aSender, string aName, object eventArgs) { PostNotification(new Notification(aSender, aName, eventArgs)); }
     public void PostNotification(Notification aNotification)
     {
         // First make sure that the name of the notification is valid.
@@ -123,7 +123,7 @@ public class NotificationsManager : MonoBehaviour
             else
             {
                 // If the observer is valid, then send it the notification. The message that's sent is the name of the notification.
-                Debug.Log("Notified");
+                Debug.Log("Notified " + aNotification.name);
                 observer.SendMessage(aNotification.name, aNotification, SendMessageOptions.DontRequireReceiver);
             }
         }
@@ -131,6 +131,7 @@ public class NotificationsManager : MonoBehaviour
         // Remove all the invalid observers
         foreach (Component observer in observersToRemove)
         {
+            Debug.Log("Removed " + observer.ToString() + "from notifications list");
             notifyList.Remove(observer);
         }
     }
@@ -183,7 +184,7 @@ public class NotificationsManager : MonoBehaviour
         public Hashtable data;
         public object EventArgs;
 
-        public Notification(Component aSender, string aName) { sender = aSender; name = aName; data = null; }
+        public Notification(Component aSender, string aName) { sender = aSender; name = aName; }
         public Notification(Component aSender, string aName, object eventArgs) { sender = aSender; name = aName; EventArgs = eventArgs; }
         public Notification(Component aSender, string aName, Hashtable aData) { sender = aSender; name = aName; data = aData; }
     }

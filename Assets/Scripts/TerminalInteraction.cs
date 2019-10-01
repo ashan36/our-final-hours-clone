@@ -1,13 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TerminalInteraction : Trigger
+public class TerminalInteraction : Trigger, IInteractable
 
 {
     public bool On;
 
     public Trigger triggerInstance;
-    TriggerManager managerRef;
 
     public Sprite onSprite;
     public Sprite offSprite;
@@ -15,44 +14,51 @@ public class TerminalInteraction : Trigger
 
     public override void Awake()
     {
-        managerRef = GameObject.FindGameObjectWithTag("ScriptObject").GetComponent<TriggerManager>();
         triggerInstance = this;
         triggerPosition = this.transform.position;
         RegisterWithManager();
-		
         currentSprite = GetComponentInChildren <SpriteRenderer>();
     }
 
     public override void RegisterWithManager()
     {
-        identifier = managerRef.RegisterTrigger(ref triggerInstance);
+        identifier = TriggerManager.Instance.RegisterTrigger(ref triggerInstance);
+       // Debug.Log("Terminal identifier = " + identifier);
     }
 
 	// Use this for initialization
 	void Start () 
     {
-	
+        NotificationsManager.DefaultNotifier.AddObserver(this, "OnPlayerInteract");
 	}
 	
 	// Update is called once per frame
-    void Update()
+    public void OnPlayerInteract()
     {
-        if (Vector3.Magnitude(triggerPosition - PlayerController.playerTrans.position) < 0.65f)
+        StartCoroutine(Switch());
+    }
+
+    public IEnumerator Switch()
+    {
+        Debug.Log("Switching");
+        Debug.Log("Distance: " + Vector3.Magnitude(triggerPosition - PlayerController.playerTrans.position));
+        if (Vector3.Magnitude(triggerPosition - PlayerController.playerTrans.position) < 0.8f)
         {
-            if (Input.GetButtonDown("Use"))
+            Debug.Log("Switching in range");
+            if (!On)
             {
-                if (!On)
-                {
-                    On = true;
-                    OnTriggered();
-                    currentSprite.sprite = onSprite;
-                }
-                else
-                {
-                    On = false;
-                    OnTriggered();
-                    currentSprite.sprite = offSprite;
-                }
+                On = true;
+                OnTriggered();
+                currentSprite.sprite = onSprite;
+                yield return new WaitForSeconds(0.4f);
+            }
+
+            else
+            {
+                On = false;
+                OnTriggered();
+                currentSprite.sprite = offSprite;
+                yield return new WaitForSeconds(0.4f);
             }
         }
     }

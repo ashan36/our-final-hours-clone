@@ -13,17 +13,19 @@
 		 * 11 = walk shooting backwards
 		 * 12 = dodge forward
 		 * 13 = dodge backwards
+         * !TEMP! 20 = hurt
 		 * 20 = death
 		 */
-
+/*
 walking
+hurt
 sprinting
 attacking
 attackPrep
 knockback
 dodging
 backpack
-interaction
+interacting
 //stealth
 
 dead
@@ -34,125 +36,147 @@ shooting = attacking
 press da button = interaction
 //sneaky sneaky = stealth 
 idle = !walking && !sprinting
+*/
 
-
-if (attacking && rangedWeapon)
-	rangedAnims();
 
 if (playerHealth.isDead) 									//***dead***//
+{
+	animPlayer.SetFloat ("Action", 10f);
+}
+else // Player is not dead
+{
+    if (hurt)
+    {
+        animPlayer.SetFloat ("Action", 20f);
+    }
+    else
+    {
+		if (dodging && facingRight) 				/***dodging & right***/
 		{
-			animPlayer.SetFloat ("Action", 10f);
-		}
-		else // Player is not dead
-		{
-			if (knockback) 									/***knockback***/
+			if(h =< 0)
 			{
-				animPlayer.SetFloat ("Action", 4f);
+				animPlayer.SetFloat ("Action", 13f);
+                moveSpeed = 6f;
+			}
+			else if (h > 0)
+			{
+				animPlayer.SetFloat ("Action", 12f);
+                moveSpeed = 6f;
+			}
+		}
+		else if (dodging && !facingRight) 			/***dodging & left***/
+		{
+			if(h < 0)
+			{
+				animPlayer.SetFloat ("Action", 12f);
+                moveSpeed = 6f;
+			}
+			else if (h >= 0)
+			{
+				animPlayer.SetFloat ("Action", 13f);
+                moveSpeed = 6f;
+			}
+		}
+		else
+        {
+            if (knockback) 									/***knockback***/
+			{
+			animPlayer.SetFloat ("Action", 4f);
 			}
 			else
 			{
-				if (dodging && facingRight) 				/***dodging & right***/
+				if (aiming && idle) 					/***aiming & not moving***/
 				{
-					if(h =< 0)
-					{
-						animPlayer.SetFloat ("Action", 13f);
-					}
-					else if (h > 0)
-					{
-						animPlayer.SetFloat ("Action", 12f);
-					}
+					animPlayer.SetFloat ("Action", 1f);
+                    moveSpeed = 2f;
+                    if (attacking)
+						animPlayer.SetFloat ("Action", 2f); //idle aiming & attacking
 				}
-				else if (dodging && !facingRight) 			/***dodging & left***/
+				else if (aiming && facingRight) 		/***aiming & moving right***/
 				{
 					if(h < 0)
 					{
-						animPlayer.SetFloat ("Action", 12f);
+						animPlayer.SetFloat ("Action", 10f);
+                        moveSpeed = 2f;
+                        if (attacking)
+                            animPlayer.SetFloat ("Action", 11f); //aiming while moving left & attacking (backward)
 					}
-					else if (h >= 0)
+					else if (h > 0)
 					{
-						animPlayer.SetFloat ("Action", 13f);
+						animPlayer.SetFloat ("Action", 7f);
+                        moveSpeed = 2f;
+                        if (attacking)
+                            animPlayer.SetFloat ("Action", 8f); //aiming while moving right & attacking (forward)
+					}
+				}
+				else if (aiming && !facingRight) 		/***aiming & moving left***/
+				{
+					if(h < 0)
+					{
+						animPlayer.SetFloat ("Action", 7f);
+                        moveSpeed = 2f;
+                        if (attacking)
+                            animPlayer.SetFloat ("Action", 8f); //aiming while moving left & attacking (forward)
+					}
+					else if (h > 0)
+					{
+						animPlayer.SetFloat ("Action", 10f);
+                        moveSpeed = 2f;
+                        if (attacking)
+                            animPlayer.SetFloat ("Action", 11f); //aiming while moving right & attacking (backward)
 					}
 				}
 				else
 				{
-					if (aiming && idle) 					/***aiming & not moving***/
-					{
-						animPlayer.SetFloat ("Action", 1f);
-					}
-					else if (aiming && facingRight) 		/***aiming & moving right***/
-					{
-						if(h < 0)
+                    if (running && facingRight && h > 0)
+                    {
+                        animPlayer.SetFloat ("Action", 5f);
+                        moveSpeed = 5f;
+                    }
+                    else if (running && !facingRight && h < 0)
+                    {
+                        animPlayer.SetFloat ("Action", 5f);
+                        moveSpeed = 5f;
+                    }
+                    else
+                    {   
+						if (walking && facingRight && h > 0)
 						{
-							animPlayer.SetFloat ("Action", 10f);
+							animPlayer.SetFloat ("Action", 6f);
+                            moveSpeed = 3f;
 						}
-						else if (h >= 0)
+                        else if (walking && !facingRight && h < 0)
+                        {
+                            animPlayer.SetFloat ("Action", 6f);
+                            moveSpeed = 3f;
+                        }
+						else if (walking && !facingRight && h > 0)
 						{
-							animPlayer.SetFloat ("Action", 7f);
+							animPlayer.SetFloat ("Action", 9f);
+                            moveSpeed = 3f;
 						}
-					}
-					else if (aiming && !facingRight) 		/***aiming & moving left***/
-					{
-						if(h =< 0)
-						{
-							animPlayer.SetFloat ("Action", 7f);
-						}
-						else if (h > 0)
-						{
-							animPlayer.SetFloat ("Action", 10f);
-						}
-					}
-					else
-					{
-						if (attacking && idle) 				/***shooting & not moving***/
-						{
-							animPlayer.SetFloat ("Action", 2f);
-						}
-						else if (attacking && facingRight) 	/***shooting & moving right***/
-						{
-							if(h < 0)
-							{
-								animPlayer.SetFloat ("Action", 11f);
-							}
-							else if (h >= 0)
-							{
-								animPlayer.SetFloat ("Action", 8f);
-							}
-						}
-						else if (attacking && !facingRight) 	/***shooting & moving left***/
-						{
-							if(h =< 0)
-							{
-								animPlayer.SetFloat ("Action", 8f);
-							}
-							else if (h > 0)
-							{
-								animPlayer.SetFloat ("Action", 11f);
-							}
-						}
-						else
-						{
-							if (walking)
-							{
-								animPlayer.SetFloat ("Action", 5f);
-							}
-							else if(!walking)
-							{
-								animPlayer.SetFloat ("Action", 0f);
-							}
-							if (attacking)
-							{
-								animPlayer.SetFloat ("Action", 7f);
-							}
-							else if (!attacking && !walking)
-							{
-								animPlayer.SetFloat ("Action", 0f);
-							}
-							else if (!attacking && walking)
-							{
-								animPlayer.SetFloat ("Action", 5f);
-							}
-						}
-					}
+                        else if (walking && facingRight && h < 0)
+                        {
+                            animPlayer.SetFloat ("Action", 9f);
+                            moveSpeed = 3f;
+                        }
+                        else 
+                        {
+                            if (interacting)
+                            {
+                                animPlayer.SetFloat ("Action", 9f);
+                            }
+                            else
+                            {
+                                if (idle)
+                                {
+                                    animPlayer.SetFloat ("Action", 0f);
+                                }
+                            }
+                        }
+                    }
 				}
 			}
 		}
+    }
+}

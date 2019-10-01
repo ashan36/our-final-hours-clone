@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿/*using UnityEngine;
 using System.Collections;
 
 public class GhostController : FSMSystem
@@ -14,16 +14,14 @@ public class GhostController : FSMSystem
     public int pointsAmt = 5;
 
 	/* health */
-	ObjectHealth enemyHealth;
+	//ObjectHealth enemyHealth;
 
 	/* for animating */
-	//private GameObject eAnim;
-	private Animator animEnemy;
+/*	private Animator animEnemy;
 
 
     void Awake()
     {
-		// eAnim = GameObject.Find ("Ghost");
 		animEnemy = this.GetComponentInChildren <Animator> ();
 
 		enemyHealth = this.GetComponentInChildren <ObjectHealth> ();
@@ -112,3 +110,4 @@ public class GhostController : FSMSystem
         AddState(dead);
     }
 }
+*/

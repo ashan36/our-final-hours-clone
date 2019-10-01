@@ -1,14 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour, IEmitsSound, IAITrackable
+{
 
 	/* for movement */
-	float speed = 6f;
-	public float moveSpeed = 4f;
-	public float moveAttackSpeed = 2f; // player's movement speed while attacking, shooting, etc
-	public float moveFallSpeed = 2f;
-	public float direction = 1f; // for turning left and right
+	public float walkSpeed = 2f;
+    public float dodgeSpeed = 5f;
+    public float jumpBackSpeed = 4.5f;
+    public float runSpeed = 4f;
+	public float aimSpeed = 1.1f; // player's movement speed while attacking, shooting, etc
+
 	Vector3 movement;
 	GameObject player;
 	public static Transform playerTrans;
@@ -20,24 +22,44 @@ public class PlayerController : MonoBehaviour {
 	public Quaternion localRotation;
     float rotateSpeed = 7.0f;
 
-    public static bool attacking = false;
-
 	/* for jumping */
-	public float jumpHeight= 10f;
-	public static bool jumping = false;
-	public static bool falling = false;
+//	public float jumpHeight= 10f;
+//	public static bool jumping = false;
+//	public static bool falling = false;
 	public static bool isGrounded = true;
 
 	/* for animating */
 	public GameObject pAnim;
 	public Animator animPlayer;
-	public static bool walking;
+  
+	public bool walking;
     public static bool isInside = false;
+    public bool attacking = false;
+    public bool facingRight;
+    public bool running;
+    public bool dodging;
+    public bool aiming;
+    public bool idle;
+    public bool interacting;
+    public bool knockback;
+    public bool hurt;
+    public bool animComplete = true;
 
 	/* health */
 	ObjectHealth playerHealth;
 
+    //Weapon references
 	public int weapon = 0;
+    Shooting shootingRef;
+
+    //From IEmitsSound
+    public float soundValue { get; set; }
+
+    //From IAITrackable
+    [SerializeField]
+    public float speed { get; set; }
+    public Transform trackingTransform { get; set; } 
+    public Vector3 currentHeading { get; set; }
 	
 	void Awake () 
 	{
@@ -46,25 +68,25 @@ public class PlayerController : MonoBehaviour {
 
 		player = GameObject.FindGameObjectWithTag ("Player");
 		playerTrans = player.transform;
-		speed = moveSpeed;
+        trackingTransform = player.transform;
 
-		playerHealth = this.GetComponentInChildren <ObjectHealth> ();
+		playerHealth = this.GetComponentInChildren<ObjectHealth>();
+
+        shootingRef = this.GetComponentInChildren<Shooting>();
+        soundValue = 0f;
 	}
 
     void Start ()
     {
         FollowCam.S.poi = player;
+        NotificationsManager.DefaultNotifier.AddObserver(this, "OnPlayerHurt");
     }
 	
 	// FixedUpdate is called 50 times per second
 	void FixedUpdate ()
 	{
-        if (!GameManager.gamePaused)
-        {
-            float h = Input.GetAxisRaw("Horizontal");
-            float v = Input.GetAxisRaw("Vertical"); ;
 
-            if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+ /*         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
             {
                 GetComponent<Rigidbody>().velocity = new Vector3(0f, jumpHeight);
                 jumping = true;
@@ -86,10 +108,7 @@ public class PlayerController : MonoBehaviour {
                 falling = true;
                 speed = moveFallSpeed;
             }
-
-            Move(h, v);
-            Animating(h, v);
-        }
+  */
 	}
 
     void Update ()
@@ -99,30 +118,194 @@ public class PlayerController : MonoBehaviour {
             GameManager.gamePaused = true;
         }
 
+        if (!GameManager.gamePaused)
+        {
+            UpdateMouse();
+            float h = Input.GetAxisRaw("Horizontal");
+            float v = Input.GetAxisRaw("Vertical");
+
+            StartCoroutine(decideState(h, v));
+
+            Move(h, v);
+        }
+
+        trackingTransform = player.transform;
         FollowCam.S.poi = player;
-        UpdateMouse();
 	}
+
+    public IEnumerator decideState(float h, float v)
+    {
+        //Aiming
+        if (Input.GetKey(KeyCode.Mouse1) && isGrounded)
+        {
+            soundValue = 45;
+            aiming = true;
+        }
+        else if (Input.GetKeyUp(KeyCode.Mouse1) && isGrounded)
+        {
+            aiming = false;
+        }
+
+        //Shooting
+        if (Input.GetMouseButton(0) && aiming)
+        {
+            soundValue = 125;
+            attacking = true;
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            attacking = false;
+            shootingRef.SendMessage("PullTrigger", attacking);
+        }
+
+        //Running
+        if (Input.GetKey(KeyCode.LeftShift) && isGrounded && !aiming)
+        {
+            running = true;
+            walking = false;
+            soundValue = 80;
+            rotateSpeed = 2.0f;
+        }
+        else if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            running = false;
+        }
+
+        //Dodging
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded && animComplete)
+        {
+            dodging = true;
+            rotateSpeed = 1.0f;
+            soundValue = 80;
+            animComplete = false;
+            yield return StartCoroutine(Animating(h, v));
+        }
+        if (Input.GetKeyUp(KeyCode.Space) && isGrounded && animComplete)
+        {
+            dodging = false;
+        }
+        else if (animComplete)
+        {
+            dodging = false;
+        }
+
+        // Walking
+        if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)) && !(h == 0 && v == 0) && isGrounded && !running && !dodging)
+        {
+            walking = true;
+            soundValue = 50;
+            rotateSpeed = 7.0f;
+        }
+        else
+        {
+            walking = false;
+        }
+
+        //Knock back attack (kicking)
+        if (Input.GetKeyDown(KeyCode.F) && isGrounded && animComplete)
+        {
+            knockback = true;
+            animComplete = false;
+            soundValue = 80;
+            yield return StartCoroutine(Animating(h, v));
+        }
+        else if (Input.GetKeyUp(KeyCode.F) && animComplete)
+        {
+            knockback = false;
+            yield return StartCoroutine(Animating(h, v));
+        }
+
+        //Interacting
+        if (Input.GetKeyDown(KeyCode.E) && isGrounded && animComplete)
+        {
+            interacting = true;
+            soundValue = 30;
+            animComplete = false;
+            yield return StartCoroutine(Animating(h, v));
+            if (animComplete)
+                NotificationsManager.DefaultNotifier.PostNotification(this, "OnPlayerInteract");
+        }
+        else if (Input.GetKeyUp(KeyCode.E) && animComplete)
+        {
+            interacting = false;
+            yield return StartCoroutine(Animating(h, v));
+        }
+
+        if (!Input.anyKeyDown)
+        {
+            idle = true;
+            soundValue = 0f;
+        }
+        else
+        {
+            idle = false;
+        }
+
+        yield return StartCoroutine(Animating(h, v));
+    }
 
 	void Move (float h, float v)
 	{
 		movement.Set (h, 0f, (v));
-		
-		movement = movement.normalized * speed * Time.deltaTime;
 
-		playerTrans.position += movement;
+        if (walking)
+        {
+            movement = movement.normalized * speed * Time.deltaTime;
+            playerTrans.position += movement;
+            currentHeading = movement.normalized;
+        }
+
+        if (running)
+        {
+            movement = playerTrans.forward * speed * Time.deltaTime;
+            playerTrans.position += movement;
+            currentHeading = transform.forward;
+        }
+
+        if (dodging)
+        {
+            if (facingRight && (h > 0 || running))
+            {
+                movement = playerTrans.forward * speed * Time.deltaTime;
+                playerTrans.position += movement;
+                currentHeading = transform.forward;
+            }
+
+            if (facingRight && h <= 0)
+            {
+                movement = playerTrans.forward * -speed * Time.deltaTime;
+                playerTrans.position += movement;
+                currentHeading = -transform.forward;
+            }
+
+            if (!facingRight && h >= 0)
+            {
+                movement = playerTrans.forward * -speed * Time.deltaTime;
+                playerTrans.position += movement;
+                currentHeading = -transform.forward;
+            }
+
+            if (!facingRight && (h < 0 || running))
+            {
+                movement = playerTrans.forward * speed * Time.deltaTime;
+                playerTrans.position += movement;
+                currentHeading = transform.forward;
+            }
+
+
+        }
 	}
 
-	void Flip ()
-	{
-		playerTrans.localEulerAngles = new Vector3 (0,direction,0);
-	}
+    void OnPlayerHurt()
+    {
+        return;
+    }
 
 	void OnCollisionEnter(Collision coll) 
 	{
 		if (coll.gameObject.tag == "Ground")
 		{
 			isGrounded = true;
-			falling = false;
             isInside = false;
             //print("is Outside");
 		}
@@ -130,13 +313,12 @@ public class PlayerController : MonoBehaviour {
         if (coll.gameObject.tag == "InsideFloor")
         {
 			isGrounded = true;
-			falling = false;
 			isInside = true;
             //print("is Inside");
         }
 		
 	}
-	void Animating (float h, float v)
+	public IEnumerator Animating (float h, float v)
 	{
 		/* Action number code
 		 * - - - - - - - - - -
@@ -144,7 +326,7 @@ public class PlayerController : MonoBehaviour {
 		 * 1 = idle aiming
 		 * 2 = idle shooting
 		 * 3 = idle interaction
-		 * 4 = [reserved]
+		 * 4 = knockback
 		 * 5 = running
 		 * 6 = walk forward
 		 * 7 = walk aiming forward
@@ -154,37 +336,211 @@ public class PlayerController : MonoBehaviour {
 		 * 11 = walk shooting backwards
 		 * 12 = dodge forward
 		 * 13 = dodge backwards
-		 * 20 = death
+		 * 14 = hurt
+         * 15 = death
 		 */
 
-		if (playerHealth.isDead) // Player is dead
-		{
-			animPlayer.SetFloat ("Action", 10f);
-		}
-		else // Player is not dead
-		{
-			walking = (h != 0f || v != 0f);
-			if (walking)
-			{
-				animPlayer.SetFloat ("Action", 5f);
-			}
-			else if(!walking)
-			{
-				animPlayer.SetFloat ("Action", 0f);
-			}
-       		if (attacking)
-       		{
-				animPlayer.SetFloat ("Action", 7f);
-        	}
-       		else if (!attacking && !walking)
-        	{
-				animPlayer.SetFloat ("Action", 0f);
-        	}
-			else if (!attacking && walking)
-			{
-				animPlayer.SetFloat ("Action", 5f);
-			}
-		}
+        if (playerHealth.isDead) 									//***dead***//
+        {
+	        animPlayer.SetFloat ("Action", 15f);
+            yield return new WaitForSeconds(2f);
+            animComplete = true;
+        }
+        else // Player is not dead
+        {
+            if (playerHealth.hurt)
+            {
+                animPlayer.SetFloat ("Action", 14f);
+                speed = 0.1f;
+                yield return new WaitForSeconds(0.35f);
+                playerHealth.hurt = false;
+                animComplete = true;
+            }
+            else
+            {
+		        if (dodging && facingRight) 			/***dodging & right***/
+		        {
+                    if (running || h > 0) //Moving right, dodge roll forward
+                    {
+                        animPlayer.SetFloat("Action", 12f);
+                        speed = dodgeSpeed;
+                        yield return new WaitForSeconds(0.35f);
+                    }
+			        else if (h <= 0) //Moving left, dodge jumpback
+			        {
+				        animPlayer.SetFloat ("Action", 13f);
+                        speed = jumpBackSpeed;
+                        yield return new WaitForSeconds(0.2f);
+			        }
+                    dodging = false;
+                    animComplete = true;
+                    rotateSpeed = 7.0f;
+		        }
+		        else if (dodging && !facingRight) 			/***dodging & left***/
+		        {
+                    if (running || h < 0) //Moving left, dodge roll forward
+                    {
+                        animPlayer.SetFloat("Action", 12f);
+                        speed = dodgeSpeed;
+                        yield return new WaitForSeconds(0.35f);
+                    }
+                    else if (h >= 0) //Moving left, dodge jumpback
+                    {
+                        animPlayer.SetFloat("Action", 13f);
+                        speed = jumpBackSpeed;
+                        yield return new WaitForSeconds(0.2f);
+                    }
+                    dodging = false;
+                    animComplete = true;
+                    rotateSpeed = 7.0f;
+		        }
+		        else
+                {
+                    if (knockback) 									/***knockback***/
+			        {
+			            animPlayer.SetFloat ("Action", 4f);
+                        yield return new WaitForSeconds(0.4f);
+                        knockback = false;
+                        animComplete = true;
+			        }
+			        else
+			        {
+				        if (aiming && h == 0 && v == 0) 					/***aiming & not moving***/
+				        {
+					        animPlayer.SetFloat ("Action", 1f);
+                            speed = aimSpeed;
+                            if (attacking)
+                            {
+                                animPlayer.SetFloat("Action", 2f); //idle aiming & attacking
+                                shootingRef.SendMessage("PullTrigger", attacking);
+                                yield return new WaitForEndOfFrame();
+                            }
+                            else { yield return new WaitForEndOfFrame(); }
+				        }
+				        if (aiming && facingRight) 		/***aiming & moving right***/
+				        {
+					        if(h < 0)
+					        {
+						        animPlayer.SetFloat ("Action", 10f);
+                                speed = aimSpeed;
+                                if (attacking)
+                                {
+                                    animPlayer.SetFloat("Action", 11f); //aiming while moving left & attacking (backward)
+                                    shootingRef.SendMessage("PullTrigger", attacking);
+                                    yield return new WaitForEndOfFrame();
+                                }
+                                else { yield return new WaitForEndOfFrame(); }
+					        }
+					        if (h >= 0)
+					        {
+						        animPlayer.SetFloat ("Action", 7f);
+                                speed = aimSpeed;
+                                if (attacking)
+                                {
+                                    animPlayer.SetFloat("Action", 8f); //aiming while moving right & attacking (forward)
+                                    shootingRef.SendMessage("PullTrigger", attacking);
+                                    yield return new WaitForEndOfFrame();
+                                }
+                                else { yield return new WaitForEndOfFrame(); }
+
+					        }
+				        }
+				        if (aiming && !facingRight) 		/***aiming & moving left***/
+				        {
+					        if(h <= 0)
+					        {
+						        animPlayer.SetFloat ("Action", 7f);
+                                speed = aimSpeed;
+
+                                if (attacking)
+                                {
+                                    animPlayer.SetFloat("Action", 8f); //aiming while moving left & attacking (forward)
+                                    shootingRef.SendMessage("PullTrigger", attacking);
+                                    yield return new WaitForEndOfFrame();
+                                }
+                                else
+                                { yield return new WaitForEndOfFrame(); }
+					        }
+					        if (h > 0)
+					        {
+						        animPlayer.SetFloat ("Action", 10f);
+                                speed = aimSpeed;
+
+                                if (attacking)
+                                {
+                                    animPlayer.SetFloat("Action", 11f); //aiming while moving right & attacking (backward)
+                                    shootingRef.SendMessage("PullTrigger", attacking);
+                                    yield return new WaitForEndOfFrame();
+                                }
+                                else 
+                                { yield return new WaitForEndOfFrame(); }
+					        }
+				        }
+				        else
+				        {
+                            if (running && facingRight)
+                            {
+                                animPlayer.SetFloat ("Action", 5f);
+                                speed = runSpeed;
+                                yield return new WaitForEndOfFrame();
+                            }
+                            else if (running && !facingRight)
+                            {
+                                animPlayer.SetFloat ("Action", 5f);
+                                speed = runSpeed;
+                                yield return new WaitForEndOfFrame();
+                            }
+                            else
+                            {   
+						        if (walking && facingRight && h >= 0)
+						        {
+							        animPlayer.SetFloat ("Action", 6f);
+                                    speed = walkSpeed;
+                                    yield return new WaitForEndOfFrame();
+						        }
+                                else if (walking && !facingRight && h <= 0)
+                                {
+                                    animPlayer.SetFloat ("Action", 6f);
+                                    speed = walkSpeed;
+                                    yield return new WaitForEndOfFrame();
+                                }
+						        else if (walking && !facingRight && h > 0)
+						        {
+							        animPlayer.SetFloat ("Action", 9f);
+                                    speed = walkSpeed;
+                                    yield return new WaitForEndOfFrame();
+						        }
+                                else if (walking && facingRight && h < 0 )
+                                {
+                                    animPlayer.SetFloat ("Action", 9f);
+                                    speed = walkSpeed;
+                                    yield return new WaitForEndOfFrame();
+                                }
+                                else 
+                                {
+                                    if (interacting)
+                                    {
+                                        animPlayer.SetFloat ("Action", 3f);
+                                        yield return new WaitForSeconds(0.35f);
+                                        animComplete = true;
+                                        interacting = false;
+                                    }
+
+                                    else
+                                    {
+                                        if (idle)
+                                        {
+                                            animPlayer.SetFloat ("Action", 0f);
+                                            yield return new WaitForEndOfFrame();
+                                        }
+                                    }
+                                }
+                            }
+				        }
+			        }
+		        }
+            }
+        }
 	}
 
     void UpdateMouse ()
@@ -201,30 +557,41 @@ public class PlayerController : MonoBehaviour {
             Quaternion targetRotation = Quaternion.LookRotation(RayHitPoint - transform.position);
 
             if (targetRotation.eulerAngles.y >= 55.0f && targetRotation.eulerAngles.y <= 125.0f)
+            {
                 playerTrans.rotation = Quaternion.Slerp(playerTrans.rotation, targetRotation, Time.deltaTime * rotateSpeed);
+                facingRight = true;
+            }
 
             else if (targetRotation.eulerAngles.y <= 305 && targetRotation.eulerAngles.y >= 235)
+            {
                 playerTrans.rotation = Quaternion.Slerp(playerTrans.rotation, targetRotation, Time.deltaTime * rotateSpeed);
+                facingRight = false;
+            }
+
 
             else if (targetRotation.eulerAngles.y > 0 && targetRotation.eulerAngles.y < 55.0f)
             {
                 targetRotation = Quaternion.AngleAxis(55.0f, Vector3.up);
                 playerTrans.rotation = Quaternion.Slerp(playerTrans.rotation, targetRotation, Time.deltaTime * rotateSpeed);
+                facingRight = true;
             }
             else if (targetRotation.eulerAngles.y < 360 && targetRotation.eulerAngles.y > 305.0f)
             {
                 targetRotation = Quaternion.AngleAxis(305.0f, Vector3.up);
                 playerTrans.rotation = Quaternion.Slerp(playerTrans.rotation, targetRotation, Time.deltaTime * rotateSpeed);
+                facingRight = false;
             }
             else if (targetRotation.eulerAngles.y > 180 && targetRotation.eulerAngles.y < 235.0f)
             {
                 targetRotation = Quaternion.AngleAxis(235.0f, Vector3.up);
                 playerTrans.rotation = Quaternion.Slerp(playerTrans.rotation, targetRotation, Time.deltaTime * rotateSpeed);
+                facingRight = false;
             }
             else if (targetRotation.eulerAngles.y <= 180 && targetRotation.eulerAngles.y > 125.0f)
             {
                 targetRotation = Quaternion.AngleAxis(125.0f, Vector3.up);
                 playerTrans.rotation = Quaternion.Slerp(playerTrans.rotation, targetRotation, Time.deltaTime * rotateSpeed);
+                facingRight = true;
             }
         }
     }
